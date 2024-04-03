@@ -9,6 +9,7 @@ O projeto visa criar uma plataforma online de aprendizado de música que ofereç
 * Diego Moreira Rocha
 * Gustavo Sales Santos
 * Luan Barbosa Rosa
+* Lucas Henrique Rocha Hauck
 
 ## Professores responsáveis
 
