@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rhythmicity - Login e Cadastro</title>
+    <link rel="icon" href="images/sitelogomarcapreto.png">
+    <link rel="stylesheet" href="styleform.css">
+</head>
+<body>
+<!--Navbar / FELIPE VILHENA DIAS-->
+<header class="header-navbar"> 
+
+    <a href="#" class="logo" id="logotype">
+        <img src="images\rhythmicity logotipo branco.png" alt="Logo1"> <!-- Logo do Projeto Rythmicity -->
+      </a>
+    <div class="group">
+        <ul class="navigation"> <!-- Funcionalidades da barra de navegação -->
+            <li><a href="#" id="log">Login</a></li>
+            <li><a href="#" id="sign">Cadastrar-se</a></li>
+            <li><a href="#" id="vid">Meus Estudos</a></li>
+            <li><a href="#" id="perfil">Perfil</a></li>
+            <li><a href="#" >Sobre</a></li>
+        </ul>
+        <div class="search"> <!-- Barra de pesquisa da navbar -->
+            <span class="icon">
+                <ion-icon name="search-outline"
+                class="searchBtn"></ion-icon>  <!-- Botão de pesquisa pego da biblioteca ionicons -->
+                <ion-icon name="close-outline"
+                class="closeBtn"></ion-icon> <!-- Botão de fechar pego da biblioteca ionicons -->
+            </span>
+        </div>
+        <ion-icon name="menu-outline" class="menuToggle"></ion-icon>
+    </div>
+    <div class="searchBox">
+        <input type="text" placeholder="Studies, Lessons, Instruments. . . "> <!-- Barra de pesquisa e placeholder para pesquisa  -->
+    </div>
+</header>
+
+<!--Formulários de Login e Cadastro / GABRIEL APOCALYPSE ROCHA FARIA-->
+<section class="container forms">
+
+<!--Caixa maior com requerimento de dados para realização de Login / GABRIEL APOCALYPSE ROCHA FARIA-->
+
+    <div class="form login">
+        <div class="form-content">
+            <header class="header-form">Login</header>
+            <form action="#">
+                <div class="field input-field">
+                    <input type="email" placeholder="E-mail" class="input">
+                </div>
+
+                <div class="field input-field">
+                    <input type="password" placeholder="Senha" class="password" id="login-password" required>
+                    <box-icon name='hide' class="olho-senha" data-password-toggle="login-password"></box-icon>
+                </div>
+
+                <div class="form-link">
+                    <a href="#" class="esqueceu-a-senha">Esqueceu a senha?</a>
+                </div>
+
+                <div class="field button-field">
+                    <button>Entrar</button>
+                </div>
+            </form>
+
+            <div class="form-link">
+                <span>Ainda não tem uma conta? <a href="#" class="link signup-link">Cadastrar-se</a></span>
+            </div>
+        </div>
+
+        <div class="line"></div>
+
+        <div class="media-options">
+            <a href="#" class="field facebook">
+                <box-icon type='logo' name='facebook' class="facebook-icon"></box-icon>
+                <span>Entrar com Facebook</span> <!--Desabilitado, só está presente no formulário em stand-by-->
+            </a>
+        </div>
+
+        <div class="media-options">
+            <a href="#" class="field google">
+                <img src="images\google.png" alt="" class="logo-google">
+                <span>Entrar com Google</span> <!--Desabilitado, só está presente no formulário em stand-by-->
+            </a>
+        </div>
+
+    </div>
+
+<!--Segunda caixa (Cadastrar-se) / GABRIEL APOCALYPSE ROCHA FARIA-->
+
+    <div class="form signup">
+        <div class="form-content">
+            <header class="header-form">Cadastrar-se</header>
+            <form action="#">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                    <input type="text" placeholder="Nome" id="first-name">
+                    <input type="text" placeholder="Sobrenome" id="last-name">
+                </div>
+
+                <div class="field input-field">
+                    <input type="email" placeholder="E-mail" class="input" id="signup-email">
+                </div>
+
+                <div class="field input-field">
+                    <input type="password" placeholder="Senha" class="password" id="signup-password" required>
+                    <box-icon name='hide' class="olho-senha" data-password-toggle="signup-password"></box-icon>
+                </div>
+
+                <div class="field input-field">
+                    <input type="password" placeholder="Confirmar senha" class="password" id="signup-confirm-password" required>
+                    <box-icon name='hide' class="olho-senha" data-password-toggle="signup-password"></box-icon>
+                    <span id="password-error" class="error"></span>
+                </div>
+
+                <div class="field button-field">
+                    <button>Criar uma conta</button>
+                </div>
+            </form>
+
+            <div class="form-link">
+                <span>Já tem uma conta? <a href="#" class="link login-link">Login</a></span>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="media-options">
+                <a href="#" class="field facebook">
+                    <box-icon type='logo' name='facebook' class="facebook-icon"></box-icon>
+                    <span>Entrar com Facebook</span> <!--Desabilitado, só está presente no formulário em stand-by-->
+                </a>
+            </div>
+
+            <div class="media-options">
+                <a href="#" class="field google">
+                    <img src="images\google.png" alt="" class="logo-google">
+                    <span>Entrar com Google</span> <!--Desabilitado, só está presente no formulário em stand-by-->
+                </a>
+            </div>
+
+        </div>
+
+    </section>
+
+<!--Script navbar / FELIPE VILHENA DIAS-->
+    <script>
+        // variaveis
+        let searchBtn = document.querySelector('.searchBtn');
+        let closeBtn = document.querySelector('.closeBtn');
+        let searchBox = document.querySelector('.searchBox');
+        let navigation = document.querySelector('.navigation');
+        let menuToggle = document.querySelector('.menuToggle');
+        let header = document.querySelector('header');
+
+       // função para barra de pesquisa aparecer e sumir da navbar
+        searchBtn.onclick = function() {
+          searchBox.classList.add('active');
+          closeBtn.classList.add('active');
+          searchBtn.classList.add('hidden'); // Adiciona a classe 'hidden' para ocultar o botão de pesquisa
+        }
+      
+        closeBtn.onclick = function() {
+          searchBox.classList.remove('active');
+          closeBtn.classList.remove('active');
+          searchBtn.classList.remove('hidden'); // Remove a classe 'hidden' para exibir o botão de pesquisa novamente
+        }
+
+        // responsividade da navbar
+        menuToggle.onclick = function(){
+            header.classList.toggle('open');
+
+        }
+    </script>
+
+    <script src="scriptform.js"></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
+
+
