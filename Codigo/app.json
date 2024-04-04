@@ -1,0 +1,17 @@
+{
+    "searchBar": {
+      "searchBtn": {
+        "class": ".searchBtn",
+        "event": "onclick",
+        "function": "function() {\n  searchBox.classList.add('active');\n  closeBtn.classList.add('active');\n  searchBtn.classList.add('hidden');\n}"
+      },
+      "closeBtn": {
+        "class": ".closeBtn",
+        "event": "onclick",
+        "function": "function() {\n  searchBox.classList.remove('active');\n  closeBtn.classList.remove('active');\n  searchBtn.classList.remove('hidden');\n}"
+      },
+      "searchBox": {
+        "class": ".searchBox"
+      }
+    }
+}
