@@ -1,0 +1,486 @@
+/*Formulários de Login e Cadastro / GABRIEL APOCALYPSE ROCHA FARIA*/
+
+/*Fontes*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@font-face {
+    font-family: "Cabin-Light";
+    src: url("fonts/Cabin-Regular.otf") format("opentype");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    font-family: "Cabin-Light", Arial, sans-serif;
+}
+
+.container {
+    height: 100vh;
+    width: 100%;
+    background-image: url('images/fundo4.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 30px;
+}
+
+.form {
+    position: absolute;
+    max-width: 430px;
+    width: 100%;
+    padding: 30px;
+    border-radius: 6px;
+    background-color: #fff;
+    box-shadow: 0px 0px 100px 2px rgba(56, 4, 66, 0.2);
+}
+
+.form.signup {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.forms.show-signup .form.signup {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.forms.show-signup .form.login {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.header-form {
+    font-size: 28px;
+    font-weight: 600;
+    color: #161616;
+    text-align: center;
+}
+
+form {
+    margin-top: 30px;
+}
+
+.form .field {
+    position: relative;
+    height: 45px;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 6px;
+}
+
+.form-content {
+    font-family: "Cabin-Light", Arial, sans-serif;
+}
+
+.field input,
+.field button {
+    height: 100%;
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 6px;
+    font-family: "Cabin-Light", Arial, sans-serif;
+}
+
+.field input {
+    outline: none;
+    padding: 0 15px;
+    border: 1px solid #cacaca;
+}
+
+.field input:focus {
+    border-bottom-width: 2px;
+}
+
+/*Estilização dos inputs de Nome e Sobrenome pelo ID, e não pelo type "text", visto que isso interferiria no Script que altera o tipo do input de senha para mostrar/esconder*/
+input[id="first-name"],
+input[id="last-name"] {
+    width: calc(50% - 0.5rem);
+    height: 45px;
+    border-radius:0.375rem;
+    border: 1px solid #cacaca;
+    padding: 0.5rem 15px;
+    font-size: 1rem;
+}
+
+#first-name,
+#last-name {
+    font-family: "Cabin-Light";
+}
+
+input[id="first-name"]:focus,
+input[id="last-name"]:focus {
+    outline: none;
+    border-bottom-width: 2px;
+}
+
+/*Atributos dos ícones de mostrar/esconder senha */
+.olho-senha {
+    position: absolute;
+    top: 57%;
+    right: 10px;
+    transform: translateY(-72%);
+    font-size: 18px;
+    color: #8b8b8b;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.field button {
+    color: #fff;
+    background-color: #490457;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.field button:hover {
+    background-color: #6b137c;
+}
+
+/*Previnir sublinhado no texto do botão*/
+.field.google {
+    text-decoration: none !important;
+}
+
+.form-link {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.form-link span,
+.form-link a {
+    font-size: 14px;
+    font-weight: 400;
+    color: #161616;
+}
+
+.form a {
+    color: #490457;
+    text-decoration: none;
+}
+
+/*Atribuir efeitos aos "textos roxos" quando o ponteiro do mouse passa por cima*/
+.form-content a:hover {
+    text-decoration: underline;
+}
+
+.line {
+    position: relative;
+    height: 1px;
+    width: 100%;
+    margin: 36px 0;
+    background-color: #cacaca;
+}
+
+.line::before {
+    content: 'Ou';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    color: #161616;
+    padding: 0 15px;
+}
+
+.media-options a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a.facebook {
+    color: #fff;
+    background-color: #4543c0;
+}
+
+a.facebook:hover {
+    text-decoration: none;
+}
+
+/*Deixar o ícone do Facebook com preenchimento branco*/
+.facebook-icon {
+    fill: #fff;
+}
+
+a.facebook .facebook-icon {
+    height: 24px;
+    width: 24px;
+    font-size: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.facebook-icon,
+img.logo-google {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+}
+
+img.logo-google {
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+
+}
+
+a.google {
+    border: 1px solid #cacaca;
+}
+
+a.google span {
+    font-weight: 500;
+    opacity: 0.6;
+    color: #161616;
+}
+
+/*Estilizar a mensagem de senhas não-coincidentes*/
+.error {
+    color: red;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Header / FELIPE VILHENA DIAS*/
+
+
+/*Cor e configurações da navbar*/
+.header-navbar
+{
+    font-family: 'Poppins', sans-serif;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: #490457;
+    /*background: #5b008f;*/
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 15px 15px rgba(0,0,0,0.05);
+}
+
+/*Configurações da Logo da navbar*/
+.logo img {
+    max-width: 200px;
+    display: block; 
+    margin: auto; 
+}
+
+/*Configurações e alinhamentos da navbar*/
+.group
+{
+    display: flex;
+    align-items: center;
+}
+
+/*Distância e configurações dos itens da navbar*/
+header ul
+{
+    position: relative;
+    display: flex;
+    gap: 30px;
+}
+
+header ul li
+{
+    list-style: none;
+}
+
+/*Configurações do TEXTO dos itens da navbar*/
+header ul li a 
+{
+    position: relative;
+    text-decoration: none;
+    font: 1em;
+    color: #E8E8E8;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+/*Linha que fica embaixo dos itens quando passa o mouse em cima */
+header ul li a::before
+{
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background: #E8E8E8;
+    transform: scaleX(0);
+    transition: transform 0.5s ease-in-out;
+    transform-origin: right;
+}
+
+header ul li a:hover::before
+{
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/*Configurações da barra de pesquisa*/
+header .search
+{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    z-index: 10;
+    cursor: pointer;
+    color: #E8E8E8;
+}
+
+.searchBox.active
+{
+    right: 0;
+}
+
+.searchBox
+{
+    position: absolute;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background: #490457;
+    align-items: center;
+    padding: 0 30px;
+    transition: 0.5 ease-in-out;
+}
+
+.searchBox input
+{
+    width: 100%;
+    border: none;
+    outline: none;
+    height: 50px;
+    color: #E8E8E8;
+    font-size: 1.25em;
+    background:#490457;
+    border-bottom: 1px solid #E8E8E8;
+}
+
+/*Configurações do botão de pesquisa (lupa)*/
+.searchBtn
+{
+    position: relative;
+    left: 30px;
+    top: 2.5px;
+    transition: 0.5s ease-in-out;
+}
+
+.searchBtn.active
+{
+    left: 0;
+}
+
+/*Configurações do botão de fechar*/
+.closeBtn
+{
+    opacity: 0;
+    visibility: hidden;
+    transition: 0;
+    scale: 0;
+}
+
+/*Configuração da função da lupa sumir e o botao 'x' aparecer quando a barra de pesquisa se expande*/
+.closeBtn.active
+{
+    opacity: 1;
+    visibility: visible;
+    transition: 0.5s;
+    scale: 1;
+}
+
+.searchBtn.hidden {
+    display: none;
+}
+
+.searchBox.active .closeBtn {
+    right: 30px;
+}
+
+/*Responsividade da navbar*/
+.menuToggle
+{
+    position: relative;
+    display: none;
+    color: #E8E8E8;
+}
+
+/*Configurações pra aparecer o menu sanduiche em uma determinada resolução*/
+@media (max-width: 800px)
+{
+    .searchBtn
+    {
+        left: 0;
+    }
+    .menuToggle
+    {
+        position:absolute;
+        display: block;
+        font-size: 2em;
+        cursor: pointer;
+        transform: translateX(30px);
+        z-index: 10;
+    }
+    header .navigation
+    {
+      position: absolute;
+      opacity: 0;
+      visibility: hidden;
+      left: 100%;
+    }
+    header.open .navigation /* Quando clicar no menu sanduíche, expandir a tela*/
+    {
+        top: 80px;
+        opacity: 1;
+        visibility: visible;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        background: #490457;
+        width: 100%;
+        height: calc(100vh - 80px);
+        padding: 40px;
+        border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    header.open .navigation li a 
+    {
+        font-size: 1.25em;
+    }
+}  

@@ -1,0 +1,941 @@
+/*Fontes*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400&display=swap');
+@font-face {
+    font-family: "Shapiro";
+    src: url("fonts/Shapiro 95 Super Wide.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Shapiro-Middle";
+    src: url("fonts/Shapiro 75 Heavy Extd.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Cabin";
+    src: url("fonts/Cabin-Medium.otf") format("opentype");
+}
+@font-face {
+    font-family: "Cabin-Bold";
+    src: url("fonts/Cabin-Bold.otf") format("opentype");
+}
+@font-face {
+    font-family: "Cabin-Light";
+    src: url("fonts/Cabin-Regular.otf") format("opentype");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.textos-aulas strong {
+    font-family: "Cabin-Bold", Arial, sans-serif;
+    transition: transform 0.3s !important;
+    display: inline-block;
+}
+
+.textos-aulas strong:hover {
+    transform: scale(1.05);
+}
+
+h2 {
+    font-family: "Shapiro", Arial, sans-serif;
+    font-size: xx-large;
+    max-width: 35rem;
+    /*padding-top: 100px;*/
+    color: #fcfcfc;
+    letter-spacing: 1px;
+    overflow: hidden;
+}
+
+.textos-introducao p {
+    font-family: "Cabin-Light", Arial, sans-serif;
+    font-size: larger;
+    max-width: 30rem;
+    margin-top: 10px;
+    /*padding-bottom: 100px;*/
+    color: #e4e4e4;
+    overflow: hidden;
+}
+
+.textos-introducao {
+    background-color: rgba(0, 0, 0, 0.151);
+    backdrop-filter: blur(10px);
+    /*padding-left: 50px;*/
+    max-width: 40rem;
+    max-height: 600px;
+    overflow: hidden;
+    padding: 50px;
+    margin-right: 80px;
+}
+
+.introducao {
+    margin-top: 80px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 650px;
+    padding-left: 100px;
+    padding-right: 100px;
+    background-image: url('images/bg-introducao6.jpg');
+    display: flex;
+    overflow: hidden;
+}
+
+.video-container {
+    width: 600px;
+    height: 338px;
+    position: relative;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+  
+.video-container video {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+h3 {
+    font-family: "Shapiro", Arial, sans-serif;
+    font-size: xx-large;
+    max-width: 35rem;
+    /*padding-top: 100px;*/
+    color: black;
+    /*background: linear-gradient(6deg, #e7c8c7, #61fefa, #bbabff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;*/
+    letter-spacing: 1px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.textos-aulas p {
+    font-family: "Cabin", Arial, sans-serif;
+    font-size: larger;
+    margin-top: 10px;
+    /*padding-bottom: 100px;*/
+    text-align: center;
+    color: black;
+    overflow: hidden;
+}
+
+.textos-aulas {
+    background-color: rgba(0, 0, 0, 0.151);
+    backdrop-filter: blur(10px);
+    /*padding-left: 50px;*/
+    max-width: 40rem;
+    max-height: 600px;
+    overflow: hidden;
+    padding: 50px;
+}
+
+.aulas {
+    margin-top: 35px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 1050px;
+    padding-left: 100px;
+    padding-right: 100px;
+    display: flex;
+    overflow: hidden;
+}
+
+.imagens-artistas img {
+    width: 600px !important;
+    padding-right: 50px;
+}
+
+h4 {
+    font-family: "Shapiro", Arial, sans-serif;
+    font-size: x-large;
+    max-width: 35rem;
+    /*padding-top: 100px;*/
+    /*color: black;*/
+    background: linear-gradient(6deg, #377cca, #f54444, #e9b6b2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    /*text-align: center;*/
+    margin-left: 10px;
+    overflow: hidden;
+}
+
+h5 {
+    font-family: "Shapiro", Arial, sans-serif;
+    font-size: x-large;
+    max-width: 35rem;
+    /*padding-top: 100px;*/
+    /*color: black;*/
+    background: linear-gradient(6deg, #e7c8c7, #61fefa, #a793ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    /*text-align: center;*/
+    margin-left: 10px;
+    overflow: hidden;
+}
+
+h6 {
+    font-family: "Shapiro", Arial, sans-serif;
+    font-size: x-large;
+    max-width: 35rem;
+    /*padding-top: 100px;*/
+    /*color: black;*/
+    background: linear-gradient(6deg, #eb99b8, #6265f8, #bbabff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    /*text-align: center;*/
+    margin-left: 10px;
+    overflow: hidden;
+}
+
+.container-aulas {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+}
+
+.dificuldade-aulas {
+    height: 500px;
+    margin: 50px;
+    overflow: hidden;
+    position: relative;
+    user-select: none;
+}
+
+.dificuldade-aulas img {
+    height: 500px;
+    width: 350px;
+    border-radius: 3px;
+    transition: 0.5s;
+}
+
+.dificuldade-aulas p {
+    font-family: "Cabin", Arial, sans-serif;
+    max-width: 300px;
+    visibility: hidden;
+    opacity: 0;
+    margin-left: 10px;
+}
+
+.intro {
+    height: 280px;
+    width: 350px;
+    padding: 6px;
+    box-sizing: border-box;
+    position: absolute;
+    color: #e4e4e4;
+    bottom: -240px;
+    transition: bottom 0.3s ease;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2));
+}
+
+.dificuldade-aulas:hover {
+    cursor: pointer;
+}
+
+.dificuldade-aulas:hover .intro {
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3));
+}
+
+.dificuldade-aulas:hover p {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dificuldade-aulas:hover img {
+    transform: scale(1.1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+footer {
+    background-color: #29272e;
+    color: #cacaca;
+    font-family: "Cabin-Light", Arial, sans-serif;
+    font-size: small;
+    display: flex;
+    justify-content: space-between;
+}
+
+footer p {
+    margin-top: 5px;
+}
+
+footer p:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+  
+.footer-left,
+.footer-right {
+    text-align: left;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+  
+.footer-right {
+    text-align: right;
+    margin-right: 100px;
+}
+
+.footer-left {
+    margin-left: 100px;
+}
+
+.copyright {
+    font-size: smaller;
+    margin-top: 60px;
+}
+
+.copyright:hover {
+    cursor: auto;
+    text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+/*Geral, pras 3 opções*/
+
+
+
+
+#co1,
+#co2,
+#co3 {
+    background-size: 100%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    /*padding: 100px;*/
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+}
+
+#x1,
+#x2,
+#x3 {
+    color: white;
+    position: fixed;
+    font-size: 50px;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.video-overlay {
+    width: 600px;
+    height: 338px;
+    position: relative;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+}
+  
+.video-overlay video {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*Opção Iniciante*/
+
+
+
+
+.crosstext-overlay {
+    display: flex;
+    justify-content: center;
+}
+
+#co1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.infos-overlay {
+    align-items: center;
+    justify-content: center;
+    margin-top: -40px;
+    margin-left: 50px;
+}
+
+h1 {
+    font-family: "Shapiro", Arial, sans-serif;
+    font-size: 100px;
+    max-width: 35rem;
+    color: rgb(245, 245, 245);
+    letter-spacing: 8px;
+    /*margin-top: -10px;*/
+    overflow: hidden;
+}
+
+#h11 {
+    margin-left: 115px;
+}
+
+#h13 {
+    margin-left: 51px;
+}
+
+#co11,
+#co12,
+#co13,
+#co14,
+#co15,
+#co16 {
+    display: flex;
+    align-items: center;
+}
+
+#co11 ion-icon,
+#co12 ion-icon,
+#co13 ion-icon,
+#co14 ion-icon,
+#co15 ion-icon,
+#co16 ion-icon {
+  margin-top: 12px;
+  margin-right: 4px;
+  font-size: 20px;
+}
+
+.crosstext-overlay p {
+    color: rgb(245, 245, 245);
+    font-family: "Cabin-Light", Arial, sans-serif;
+    font-size: large;
+    margin-top: 15px;
+}
+
+.crosstext-overlay ion-icon {
+    color: rgb(245, 245, 245);
+}
+
+#co14 {
+    opacity: 35%;
+}
+
+#co15 {
+    opacity: 25%;
+}
+
+#co16 {
+    opacity: 15%;
+}
+
+.atuais-overlay #co11,
+.atuais-overlay #co12,
+.atuais-overlay #co13 {
+    cursor: auto;
+    transition: transform 0.3s;
+}
+
+.atuais-overlay #co11:hover,
+.atuais-overlay #co12:hover,
+.atuais-overlay #co13:hover {
+    /*transform: scale(1.03);*/
+    transform: translateX(-2%);
+}
+
+.selecionar-overlay {
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Opção Intermediário*/
+
+
+
+#co2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*margin-left: -100px;*/
+}
+
+#h22 {
+    margin-left: -153px;
+}
+
+#h23 {
+    margin-left: -41px;
+}
+
+#co21,
+#co22,
+#co23,
+#co24,
+#co25,
+#co26 {
+    display: flex;
+    align-items: center;
+}
+
+#co21 ion-icon,
+#co22 ion-icon,
+#co23 ion-icon,
+#co24 ion-icon,
+#co25 ion-icon,
+#co26 ion-icon {
+  margin-top: 12px;
+  margin-right: 4px;
+  font-size: 20px;
+}
+
+#co24 {
+    opacity: 35%;
+}
+
+#co25 {
+    opacity: 25%;
+}
+
+#co26 {
+    opacity: 15%;
+}
+
+.atuais-overlay #co21,
+.atuais-overlay #co22,
+.atuais-overlay #co23 {
+    cursor: auto;
+    transition: transform 0.3s;
+}
+
+.atuais-overlay #co21:hover,
+.atuais-overlay #co22:hover,
+.atuais-overlay #co23:hover {
+    /*transform: scale(1.03);*/
+    transform: translateX(-2%);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Opção Avançado*/
+
+
+
+#co3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*margin-left: -Xpx;*/
+}
+
+#h32 {
+    margin-left: 77px;
+}
+
+#h33 {
+    margin-left: 105px;
+}
+
+#co31,
+#co32,
+#co33,
+#co34,
+#co35,
+#co36 {
+    display: flex;
+    align-items: center;
+}
+
+#co31 ion-icon,
+#co32 ion-icon,
+#co33 ion-icon,
+#co34 ion-icon,
+#co35 ion-icon,
+#co36 ion-icon {
+  margin-top: 12px;
+  margin-right: 4px;
+  font-size: 20px;
+}
+
+#co34 {
+    opacity: 35%;
+}
+
+#co35 {
+    opacity: 25%;
+}
+
+#co36 {
+    opacity: 15%;
+}
+
+.atuais-overlay #co31,
+.atuais-overlay #co32,
+.atuais-overlay #co33 {
+    cursor: auto;
+    transition: transform 0.3s;
+}
+
+.atuais-overlay #co31:hover,
+.atuais-overlay #co32:hover,
+.atuais-overlay #co33:hover {
+    /*transform: scale(1.03);*/
+    transform: translateX(-2%);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Header / FELIPE VILHENA DIAS*/
+
+
+/*Cor e configurações da navbar*/
+.header-navbar
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: #490457;
+    /*background: #5b008f;*/
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 15px 15px rgba(0,0,0,0.05);
+}
+
+/*Configurações da Logo da navbar*/
+.logo img {
+    max-width: 200px;
+    display: block; 
+    margin: auto; 
+}
+
+/*Configurações e alinhamentos da navbar*/
+.group
+{
+    display: flex;
+    align-items: center;
+}
+
+/*Distância e configurações dos itens da navbar*/
+header ul
+{
+    position: relative;
+    display: flex;
+    gap: 30px;
+}
+
+header ul li
+{
+    list-style: none;
+}
+
+/*Configurações do TEXTO dos itens da navbar*/
+header ul li a 
+{
+    position: relative;
+    text-decoration: none;
+    font: 1em;
+    color: #E8E8E8;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+/*Linha que fica embaixo dos itens quando passa o mouse em cima */
+header ul li a::before
+{
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background: #E8E8E8;
+    transform: scaleX(0);
+    transition: transform 0.5s ease-in-out;
+    transform-origin: right;
+}
+
+header ul li a:hover::before
+{
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/*Configurações da barra de pesquisa*/
+header .search
+{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    z-index: 10;
+    cursor: pointer;
+    color: #E8E8E8;
+}
+
+.searchBox.active
+{
+    right: 0;
+}
+
+.searchBox
+{
+    position: absolute;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background: #490457;
+    align-items: center;
+    padding: 0 30px;
+    transition: 0.5 ease-in-out;
+}
+
+.searchBox input
+{
+    width: 100%;
+    border: none;
+    outline: none;
+    height: 50px;
+    color: #E8E8E8;
+    font-size: 1.25em;
+    background:#490457;
+    border-bottom: 1px solid #E8E8E8;
+}
+
+/*Configurações do botão de pesquisa (lupa)*/
+.searchBtn
+{
+    position: relative;
+    left: 30px;
+    top: 2.5px;
+    transition: 0.5s ease-in-out;
+}
+
+.searchBtn.active
+{
+    left: 0;
+}
+
+/*Configurações do botão de fechar*/
+.closeBtn
+{
+    opacity: 0;
+    visibility: hidden;
+    transition: 0;
+    scale: 0;
+}
+
+/*Configuração da função da lupa sumir e o botao 'x' aparecer quando a barra de pesquisa se expande*/
+.closeBtn.active
+{
+    opacity: 1;
+    visibility: visible;
+    transition: 0.5s;
+    scale: 1;
+}
+
+.searchBtn.hidden {
+    display: none;
+}
+
+.searchBox.active .closeBtn {
+    right: 30px;
+}
+
+/*Responsividade da navbar*/
+.menuToggle
+{
+    position: relative;
+    display: none;
+    color: #E8E8E8;
+}
+
+/*Configurações pra aparecer o menu sanduiche em uma determinada resolução*/
+@media (max-width: 800px)
+{
+    .searchBtn
+    {
+        left: 0;
+    }
+    .menuToggle
+    {
+        position:absolute;
+        display: block;
+        font-size: 2em;
+        cursor: pointer;
+        transform: translateX(30px);
+        z-index: 10;
+    }
+    header .navigation
+    {
+      position: absolute;
+      opacity: 0;
+      visibility: hidden;
+      left: 100%;
+    }
+    header.open .navigation /* Quando clicar no menu sanduíche, expandir a tela*/
+    {
+        top: 80px;
+        opacity: 1;
+        visibility: visible;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        background: #490457;
+        width: 100%;
+        height: calc(100vh - 80px);
+        padding: 40px;
+        border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    header.open .navigation li a 
+    {
+        font-size: 1.25em;
+    }
+}  
