@@ -1,10 +1,9 @@
-
 const API_KEY = "AIzaSyDRSPb4UA7JsqcNbx0B1RrmC03TRAmTQGI";
 const PLAYLIST_ID = "PL7Z74DuOF81Hzok9FSRFZRblT4UfqHhJ4";
 
 function loadVideosFromYouTube() {
   const playlist_area = document.querySelector(".playlist");
-  
+
   // Função para fazer a solicitação da próxima página de resultados
   async function fetchPlaylistPage(pageToken) {
     let url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${PLAYLIST_ID}&key=${API_KEY}&maxResults=50`;
@@ -62,32 +61,32 @@ function loadVideosFromYouTube() {
 }
 
 function setVideo(videoId, title) {
-    const video_main = document.querySelector(".main-video-content");
-    video_main.innerHTML = `
+  const video_main = document.querySelector(".main-video-content");
+  video_main.innerHTML = `
       <iframe id="youtube-video" width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
       <label>${title}</label>
     `;
-  
-    const youtube_video = document.getElementById("youtube-video");
-    youtube_video.addEventListener("ended", playNextVideo);
+
+  const youtube_video = document.getElementById("youtube-video");
+  youtube_video.addEventListener("ended", playNextVideo);
+}
+
+function playNextVideo() {
+  const active_video = document.querySelector(".playlist-video.active");
+  const next_video = active_video.nextElementSibling;
+
+  // verificar se tem um proximo video na playlist
+  if (next_video) {
+    const videoId = next_video.dataset.videoID;
+    const title = next_video.dataset.title;
+    setVideo(videoId, title);
+    updateActiveVideo(next_video);
   }
-
-function playNextVideo(){
-    const active_video = document.querySelector(".playlist-video.active");
-    const next_video = active_video.nextElementSibling;
-
-    // verificar se tem um proximo video na playlist
-    if (next_video) {
-        const videoId = next_video.dataset.videoID;
-        const title = next_video.dataset.title;
-        setVideo(videoId, title);
-        updateActiveVideo(next_video);
-    }
 }
 
 function updateActiveVideo(selectedVideo) {
   const playlist_videos = document.querySelectorAll(".playlist-video");
-  playlist_videos.forEach(video => {
+  playlist_videos.forEach((video) => {
     video.classList.remove("active");
   });
   selectedVideo.classList.add("active");
@@ -95,8 +94,31 @@ function updateActiveVideo(selectedVideo) {
 
 loadVideosFromYouTube();
 
+// variaveis
+let searchBtn = document.querySelector(".searchBtn");
+let closeBtn = document.querySelector(".closeBtn");
+let searchBox = document.querySelector(".searchBox");
+let navigation = document.querySelector(".navigation");
+let menuToggle = document.querySelector(".menuToggle");
+let header = document.querySelector("header");
 
+// função para barra de pesquisa aparecer e sumir da navbar
+searchBtn.onclick = function () {
+  searchBox.classList.add("active");
+  closeBtn.classList.add("active");
+  searchBtn.classList.add("hidden"); // Adiciona a classe 'hidden' para ocultar o botão de pesquisa
+};
 
+closeBtn.onclick = function () {
+  searchBox.classList.remove("active");
+  closeBtn.classList.remove("active");
+  searchBtn.classList.remove("hidden"); // Remove a classe 'hidden' para exibir o botão de pesquisa novamente
+};
+
+// responsividade da navbar
+menuToggle.onclick = function () {
+  header.classList.toggle("open");
+};
 
 //Mensagem estilizada no console
 console.log("                                             ");

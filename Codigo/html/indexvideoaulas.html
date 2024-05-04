@@ -7,7 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Video playlist</title>
   <link rel="icon" href="/Codigo/images/sitelogomarcapreto.png">
-
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
   <link rel="stylesheet" href="/Codigo/css/stylevideoaulas.css">
 </head>
 
@@ -23,8 +24,9 @@
         <li><a href="loja.html">Loja</a></li>
         <li><a href="Carrinho.html" id="carrinho">Seu Carrinho</a></li>
         <li><a href="indexperfil.html">Perfil</a></li>
-        <li><a href="#" id="perfil"><ion-icon size="large" name="person-circle-outline"></ion-icon></a></li>
+        <li><a href="indexperfil.html" id="perfil"><ion-icon size="large" name="person-circle-outline"></ion-icon></a></li>
       </ul>
+    
       <div class="search"> <!-- Barra de pesquisa da navbar -->
         <span class="icon">
           <ion-icon name="search-outline" class="searchBtn"></ion-icon>
@@ -33,8 +35,12 @@
           <!-- Botão de fechar pego da biblioteca ionicons -->
         </span>
       </div>
-    </div>
+      <ion-icon name="menu-outline" class="menuToggle"></ion-icon>
 
+    </div>
+    <div class="searchBox">
+      <input type="text" placeholder="Studies, Lessons, Instruments. . . "> <!-- Barra de pesquisa e placeholder para pesquisa  -->
+  </div>
   </header>
 
   <!-- Div dos videos/playlist -->
@@ -64,7 +70,9 @@
   </footer>
 
   <script src="/Codigo/js/scriptvideoaulas.js" type="module"></script>
-
+  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>
