@@ -21,7 +21,7 @@ body {
 .container {
     height: 100vh;
     width: 100%;
-    background-image: url('images/fundo4.jpg');
+    background-image: url('/images/fundo4.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -271,8 +271,6 @@ a.google span {
 
 
 
-
-/*Header / FELIPE VILHENA DIAS*/
 
 
 /*Cor e configurações da navbar*/
