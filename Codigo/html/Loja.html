@@ -5,158 +5,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pesquisa de Itens</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  <style>
-    .container {
-      margin-top: 50px;
-    }
-
-    .row {
-      margin-bottom: 10px;
-    }
-
-    .item {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: center;
-    }
-
-    .item-image {
-      width: 150px;
-      height: 150px;
-      margin-bottom: 10px;
-    }
-
-    .item-price {
-      font-weight: bold;
-    }
-
-    .header-navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px;
-      background-color: #f5f5f5;
-    }
-
-    .logo img {
-      height: 40px;
-    }
-
-    .navigation {
-      list-style: none;
-      display: flex;
-      gap: 15px;
-    }
-
-    .navigation a {
-      color: #333;
-      text-decoration: none;
-    }
-
-    .searchBtn,
-    .closeBtn {
-      cursor: pointer;
-      font-size: 20px;
-    }
-
-    .searchBox {
-      display: none;
-    }
-
-    .searchBox input {
-      width: 100%;
-      padding: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    .menuToggle {
-      cursor: pointer;
-      font-size: 20px;
-    }
-
-    @media (max-width: 768px) {
-      .header-navbar {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .logo img {
-        height: 30px;
-      }
-
-      .navigation {
-        flex-direction: column;
-      }
-
-      .search {
-        margin-right: 15px;
-      }
-    }
-
-    footer {
-      background-color: #f5f5f5;
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .footer-left strong,
-    .footer-right strong {
-      font-weight: bold;
-    }
-
-    .footer-left p,
-    .footer-right p {
-      margin: 0;
-    }
-
-    .footer-right p:not(:last-child) {
-      margin-bottom: 10px;
-    }
-
-    .footer-right p:last-child {
-      margin-bottom: 0;
-    }
-
-    .footer-right .copyright {
-      font-size: 12px;
-    }
-  </style>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="/Codigo/css/styleloja.css">
 </head>
 
 <body>
-  <header class="header-navbar">
-    <a href="#" class="logo" id="logotype">
-      <img src="/Codigo/images/rhythmicity logotipo branco.png" alt="Logo1">
-      <!-- Logo do Projeto Rythmicity -->
-    </a>
-    <div class="group">
-      <ul class="navigation">
-        <!-- Funcionalidades da barra de navegação -->
-        <li><a href="#" id="log">Login</a></li>
-        <li><a href="#" id="sign">Cadastrar-se</a></li>
-        <li><a href="#" id="vid">Meus Estudos</a></li>
-        <li><a href="loja.html">Loja</a></li>
-        <li><a href="#" id="carrinho">Seu Carrinho</a></li>
-        <li><a href="#">Sobre</a></li>
-      </ul>
-      <div class="search">
-        <!-- Barra de pesquisa da navbar -->
-        <span class="icon">
-          <ion-icon name="search-outline" class="searchBtn"></ion-icon>
-          <!-- Botão de pesquisa pego da biblioteca ionicons -->
-          <ion-icon name="close-outline" class="closeBtn"></ion-icon>
-          <!-- Botão de fechar pego da biblioteca ionicons -->
-        </span>
+    <!-- HEADER -->
+    <header class="header-navbar"> 
+
+      <a href="#" class="logo" id="logotype">
+          <img src="/Codigo/images/rhythmicity logotipo branco.png" alt="Logo1"> <!-- Logo do Projeto Rythmicity -->
+        </a>
+      <div class="group">
+          <ul class="navigation"> <!-- Funcionalidades da barra de navegação -->
+              <li><a href="#" id="log">Login</a></li>
+              <li><a href="#" id="sign">Cadastrar-se</a></li>
+              <li><a href="#" id="vid">Meus Estudos</a></li>
+              <li><a href="loja.html">Loja</a></li>
+              <li><a href="Carrinho.html" id="carrinho">Seu Carrinho</a></li>
+              <li><a href="#" >Sobre</a></li>
+              <li><a href="#" id="perfil"><ion-icon size= "large" name="person-circle-outline"></ion-icon></a></li>            
+          </ul>
+          <div class="search"> <!-- Barra de pesquisa da navbar -->
+              <span class="icon">
+                  <ion-icon name="search-outline"
+                  class="searchBtn"></ion-icon>  <!-- Botão de pesquisa pego da biblioteca ionicons -->
+                  <ion-icon name="close-outline"
+                  class="closeBtn"></ion-icon> <!-- Botão de fechar pego da biblioteca ionicons -->
+              </span>
+          </div>
+          <ion-icon name="menu-outline" class="menuToggle"></ion-icon>
       </div>
-      <ion-icon name="menu-outline" class="menuToggle"></ion-icon>
-    </div>
-    <div class="searchBox">
-      <input type="text" placeholder="Studies, Lessons, Instruments...">
-      <!-- Barra de pesquisa e placeholder para pesquisa -->
-    </div>
+      <div class="searchBox">
+          <input type="text" placeholder="Studies, Lessons, Instruments. . . "> <!-- Barra de pesquisa e placeholder para pesquisa  -->
+      </div>
   </header>
   <div class="container">
     <h1>Itens da Loja</h1>
@@ -231,34 +114,8 @@
       </p>
     </div>
   </footer>
-  <script>
-    const searchInput = document.getElementById('searchInput');
-    const items = document.getElementsByClassName('item');
-    const removeButtons = document.getElementsByClassName('btn-remove');
 
-    searchInput.addEventListener('input', function () {
-      const searchValue = this.value.toLowerCase();
-
-      for (let i = 0; i < items.length; i++) {
-        const item = items[i];
-        const itemName = item.querySelector('.item-name').textContent.toLowerCase();
-
-        if (itemName.includes(searchValue)) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
-      }
-    });
-
-    for (let i = 0; i < removeButtons.length; i++) {
-      const removeButton = removeButtons[i];
-      removeButton.addEventListener('click', function () {
-        const item = this.parentNode;
-        item.parentNode.removeChild(item);
-      });
-    }
-  </script>
+  <script src="/Codigo/js/scriptloja.js"></script>
 </body>
 
 </html>

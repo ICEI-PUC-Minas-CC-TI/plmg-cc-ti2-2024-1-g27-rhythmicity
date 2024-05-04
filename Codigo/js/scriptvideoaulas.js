@@ -1,55 +1,100 @@
-const adicionar = document.querySelector('#adicionar')
 
-adicionar.addEventListener('click', function() {
-  window.location.href = 'indexcadastrovideoaulas.html';
-});
+const API_KEY = "AIzaSyDRSPb4UA7JsqcNbx0B1RrmC03TRAmTQGI";
+const PLAYLIST_ID = "PL7Z74DuOF81Hzok9FSRFZRblT4UfqHhJ4";
 
-
-import videos from "./videos.js";
-
-function loadVideos() {
+function loadVideosFromYouTube() {
   const playlist_area = document.querySelector(".playlist");
-
-  videos.forEach((video, index) => {
-    const div = document.createElement("div");
-
-    div.innerHTML = `
-      <div class="playlist-video ${index + 1 === 1 && "active"}">
-        <video src=${video.src} muted></video>
-        <label class="playlist-video-info">${video.title}</label>
-      </div>
-    `;
-
-    playlist_area.appendChild(div);
-  });
-
-  addOnClick();
-}
-
-function addOnClick() {
-  const video_main = document.querySelector(".main-video-content");
-  const playlist_video = document.querySelectorAll(".playlist-video");
-
-  playlist_video.forEach((item, i) => {
-    if (!i) {
-      setVideo(video_main, item);
+  
+  // Função para fazer a solicitação da próxima página de resultados
+  async function fetchPlaylistPage(pageToken) {
+    let url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${PLAYLIST_ID}&key=${API_KEY}&maxResults=50`;
+    if (pageToken) {
+      url += `&pageToken=${pageToken}`;
     }
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      // Iterando sobre os itens da página atual
+      data.items.forEach((item, index) => {
+        const videoId = item.snippet.resourceId.videoId;
+        const title = item.snippet.title;
+        const thumbnail = item.snippet.thumbnails.default.url;
 
-    item.onclick = () => {
-      playlist_video.forEach((video) => video.classList.remove("active"));
-      item.classList.add("active");
+        // Criando um elemento de vídeo para cada item
+        const div = document.createElement("div");
+        div.classList.add("playlist-video");
+        div.innerHTML = `
+            <img src="${thumbnail}" alt="${title}">
+            <label class="playlist-video-info">${title}</label>
+          `;
 
-      setVideo(video_main, item);
-    };
+        // Adicionando um evento de clique para trocar o vídeo principal
+        div.addEventListener("click", () => {
+          setVideo(videoId, title);
+          updateActiveVideo(div);
+        });
+
+        playlist_area.appendChild(div);
+
+        // Se for o primeiro vídeo, defini-lo como ativo
+        if (index === 0 && !pageToken) {
+          setVideo(videoId, title);
+          updateActiveVideo(div);
+        }
+
+        // guardar informacoes dos videos quando mudar
+        div.dataset.videoId = videoId;
+        div.dataset.title = title;
+      });
+
+      // Verificando se há mais páginas de resultados
+      if (data.nextPageToken) {
+        // Se houver mais páginas, fazer outra solicitação para a próxima página
+        fetchPlaylistPage(data.nextPageToken);
+      }
+    } catch (error) {
+      console.error("Erro ao carregar vídeos:", error);
+    }
+  }
+
+  // Iniciando a solicitação para a primeira página
+  fetchPlaylistPage(null);
+}
+
+function setVideo(videoId, title) {
+    const video_main = document.querySelector(".main-video-content");
+    video_main.innerHTML = `
+      <iframe id="youtube-video" width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+      <label>${title}</label>
+    `;
+  
+    const youtube_video = document.getElementById("youtube-video");
+    youtube_video.addEventListener("ended", playNextVideo);
+  }
+
+function playNextVideo(){
+    const active_video = document.querySelector(".playlist-video.active");
+    const next_video = active_video.nextElementSibling;
+
+    // verificar se tem um proximo video na playlist
+    if (next_video) {
+        const videoId = next_video.dataset.videoID;
+        const title = next_video.dataset.title;
+        setVideo(videoId, title);
+        updateActiveVideo(next_video);
+    }
+}
+
+function updateActiveVideo(selectedVideo) {
+  const playlist_videos = document.querySelectorAll(".playlist-video");
+  playlist_videos.forEach(video => {
+    video.classList.remove("active");
   });
+  selectedVideo.classList.add("active");
 }
 
-function setVideo(video_main, item) {
-  video_main.children[0].src = item.children[0].getAttribute("src");
-  video_main.children[1].innerHTML = item.children[1].innerHTML;
-}
+loadVideosFromYouTube();
 
-loadVideos();
 
 
 
