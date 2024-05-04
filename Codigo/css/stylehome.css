@@ -3,23 +3,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400&display=swap');
 @font-face {
     font-family: "Shapiro";
-    src: url("/fonts/Shapiro 95 Super Wide.ttf") format("truetype");
+    src: url("/Codigo/fonts/Shapiro 95 Super Wide.ttf") format("truetype");
 }
 @font-face {
     font-family: "Shapiro-Middle";
-    src: url("/fonts/Shapiro 75 Heavy Extd.ttf") format("truetype");
+    src: url("/Codigo/fonts/Shapiro 75 Heavy Extd.ttf") format("truetype");
 }
 @font-face {
     font-family: "Cabin";
-    src: url("/fonts/Cabin-Medium.otf") format("opentype");
+    src: url("/Codigo/fonts/Cabin-Medium.otf") format("opentype");
 }
 @font-face {
     font-family: "Cabin-Bold";
-    src: url("/fonts/Cabin-Bold.otf") format("opentype");
+    src: url("/Codigo/fonts/Cabin-Bold.otf") format("opentype");
 }
 @font-face {
     font-family: "Cabin-Light";
-    src: url("/fonts/Cabin-Regular.otf") format("opentype");
+    src: url("/Codigo/fonts/Cabin-Regular.otf") format("opentype");
 }
 
 * {
@@ -82,7 +82,7 @@ h2 {
     height: 650px;
     padding-left: 100px;
     padding-right: 100px;
-    background-image: url('/images/bg-introducao6.jpg');
+    background-image: url('/Codigo/images/bg-introducao6.jpg');
     display: flex;
     overflow: hidden;
 }
