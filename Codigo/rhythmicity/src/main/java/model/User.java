@@ -1,33 +1,26 @@
 package model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class User {
 	private int id;
-	private String descricao;
-	private float preco;
-	private int quantidade;
-	private LocalDateTime dataFabricacao;	
-	private LocalDate dataValidade;
+	private String email;
+	private String password;
+	private LocalDateTime dataCadastro;	
 	
 	public User() {
 		id = -1;
-		descricao = "";
-		preco = 0.00F;
-		quantidade = 0;
-		dataFabricacao = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-		dataValidade = LocalDate.now().plusMonths(6); // o default é uma validade de 6 meses.
+		email = "";
+		password = "";
+		dataCadastro = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 	}
 
-	public User(int id, String descricao, float preco, int quantidade, LocalDateTime fabricacao, LocalDate v) {
+	public User(int id, String email, String password, LocalDateTime Cadastro) {
 		setId(id);
-		setDescricao(descricao);
-		setPreco(preco);
-		setQuantidade(quantidade);
-		setDataFabricacao(fabricacao);
-		setDataValidade(v);
+		setEmail(email);
+		setPassword(password);
+		setDataCadastro(Cadastro);
 	}		
 	
 	public int getID() {
@@ -39,56 +32,33 @@ public class User {
 	}
 
 	
-	public String getDescricao() {
-		return descricao;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public float getPreco() {
-		return preco;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPreco(float preco) {
-		this.preco = preco;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public int getQuantidade() {
-		return quantidade;
-	}
-	
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
-	}
-	
-	public LocalDate getDataValidade() {
-		return dataValidade;
+	public LocalDateTime getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public LocalDateTime getDataFabricacao() {
-		return dataFabricacao;
-	}
-
-	public void setDataFabricacao(LocalDateTime dataFabricacao) {
+	public void setDataCadastro(LocalDateTime dataCadastro) {
 		// Pega a Data Atual
 		LocalDateTime agora = LocalDateTime.now();
 		// Garante que a data de fabricação não pode ser futura
-		if (agora.compareTo(dataFabricacao) >= 0)
-			this.dataFabricacao = dataFabricacao;
+		if (agora.compareTo(dataCadastro) >= 0)
+			this.dataCadastro = dataCadastro;
 	}
-
-	public void setDataValidade(LocalDate dataValidade) {
-		// a data de fabricação deve ser anterior é data de validade.
-		if (getDataFabricacao().isBefore(dataValidade.atStartOfDay()))
-			this.dataValidade = dataValidade;
-	}
-
-	public boolean emValidade() {
-		return LocalDateTime.now().isBefore(this.getDataValidade().atTime(23, 59));
-	}
-
 
 	/**
 	 * Método sobreposto da classe Object. É executado quando um objeto precisa
@@ -96,8 +66,8 @@ public class User {
 	 */
 	@Override
 	public String toString() {
-		return "Produto: " + descricao + "   Preço: R$" + preco + "   Quantidade.: " + quantidade + "   Fabricação: "
-				+ dataFabricacao  + "   Data de Validade: " + dataValidade;
+		return "Email: " + email + "   Data de cadastro: "
+				+ dataCadastro;
 	}
 	
 	@Override

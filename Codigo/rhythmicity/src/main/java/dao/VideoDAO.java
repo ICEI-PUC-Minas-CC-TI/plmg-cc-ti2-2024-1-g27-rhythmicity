@@ -1,13 +1,12 @@
 package dao;
 
-import model.User;
+import model.Video;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,15 +23,14 @@ public class VideoDAO extends DAO {
 	}
 	
 	
-	public boolean insert(User produto) {
+	public boolean insert(Video video) {
 		boolean status = false;
 		try {
-			String sql = "INSERT INTO produto (descricao, preco, quantidade, datafabricacao, datavalidade) "
-		               + "VALUES ('" + produto.getDescricao() + "', "
-		               + produto.getPreco() + ", " + produto.getQuantidade() + ", ?, ?);";
+			String sql = "INSERT INTO video (descricao, titulo, datapublicacao) "
+		               + "VALUES ('" + video.getDescricao() + "', "
+		               + video.getTitulo() + ", " + ", ?);";
 			PreparedStatement st = conexao.prepareStatement(sql);
-		    st.setTimestamp(1, Timestamp.valueOf(produto.getDataFabricacao()));
-			st.setDate(2, Date.valueOf(produto.getDataValidade()));
+		    st.setTimestamp(1, Timestamp.valueOf(video.getDataPublicacao()));
 			st.executeUpdate();
 			st.close();
 			status = true;
@@ -43,80 +41,74 @@ public class VideoDAO extends DAO {
 	}
 
 	
-	public User get(int id) {
-		User produto = null;
+	public Video get(int id) {
+		Video video = null;
 		
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-			String sql = "SELECT * FROM produto WHERE id="+id;
+			String sql = "SELECT * FROM video WHERE id="+id;
 			ResultSet rs = st.executeQuery(sql);	
 	        if(rs.next()){            
-	        	 produto = new User(rs.getInt("id"), rs.getString("descricao"), (float)rs.getDouble("preco"), 
-	                				   rs.getInt("quantidade"), 
-	        			               rs.getTimestamp("datafabricacao").toLocalDateTime(),
-	        			               rs.getDate("datavalidade").toLocalDate());
+	        	 video = new Video(rs.getInt("id"), rs.getString("descricao"), rs.getString("titulo"), 
+	        			               rs.getTimestamp("datapublicacao").toLocalDateTime());
 	        }
 	        st.close();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
-		return produto;
+		return video;
 	}
 	
 	
-	public List<User> get() {
+	public List<Video> get() {
 		return get("");
 	}
 
 	
-	public List<User> getOrderByID() {
+	public List<Video> getOrderByID() {
 		return get("id");		
 	}
 	
 	
-	public List<User> getOrderByDescricao() {
+	public List<Video> getOrderByDescricao() {
 		return get("descricao");		
 	}
 	
 	
-	public List<User> getOrderByPreco() {
-		return get("preco");		
+	public List<Video> getOrderByTitulo() {
+		return get("titulo");		
 	}
 	
 	
-	private List<User> get(String orderBy) {
-		List<User> produtos = new ArrayList<User>();
+	private List<Video> get(String orderBy) {
+		List<Video> videos = new ArrayList<Video>();
 		
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-			String sql = "SELECT * FROM produto" + ((orderBy.trim().length() == 0) ? "" : (" ORDER BY " + orderBy));
+			String sql = "SELECT * FROM video" + ((orderBy.trim().length() == 0) ? "" : (" ORDER BY " + orderBy));
 			ResultSet rs = st.executeQuery(sql);	           
 	        while(rs.next()) {	            	
-	        	User p = new User(rs.getInt("id"), rs.getString("descricao"), (float)rs.getDouble("preco"), 
-	        			                rs.getInt("quantidade"),
-	        			                rs.getTimestamp("datafabricacao").toLocalDateTime(),
-	        			                rs.getDate("datavalidade").toLocalDate());
-	            produtos.add(p);
+	        	Video p = new Video(rs.getInt("id"), rs.getString("descricao"), rs.getString("titulo"), 
+	        			                rs.getTimestamp("datapublicacao").toLocalDateTime());
+	            videos.add(p);
 	        }
 	        st.close();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
-		return produtos;
+		return videos;
 	}
 	
 	
-	public boolean update(User produto) {
+	public boolean update(Video video) {
 		boolean status = false;
 		try {  
-			String sql = "UPDATE produto SET descricao = '" + produto.getDescricao() + "', "
-					   + "preco = " + produto.getPreco() + ", " 
-					   + "quantidade = " + produto.getQuantidade() + ","
-					   + "datafabricacao = ?, " 
-					   + "datavalidade = ? WHERE id = " + produto.getID();
+			String sql = "UPDATE video SET descricao = '" + video.getDescricao() + "', "
+					   + "titulo = " + video.getTitulo() + ", " 
+					   + "datapublicacao = ?, " 
+					   + "WHERE id = " + video.getID();
 			PreparedStatement st = conexao.prepareStatement(sql);
-		    st.setTimestamp(1, Timestamp.valueOf(produto.getDataFabricacao()));
-			st.setDate(2, Date.valueOf(produto.getDataValidade()));
+		    st.setTimestamp(1, Timestamp.valueOf(video.getDataPublicacao()));
 			st.executeUpdate();
 			st.close();
 			status = true;
@@ -131,7 +123,7 @@ public class VideoDAO extends DAO {
 		boolean status = false;
 		try {  
 			Statement st = conexao.createStatement();
-			st.executeUpdate("DELETE FROM produto WHERE id = " + id);
+			st.executeUpdate("DELETE FROM video WHERE id = " + id);
 			st.close();
 			status = true;
 		} catch (SQLException u) {  

@@ -1,33 +1,26 @@
 package model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class Video {
 	private int id;
 	private String descricao;
-	private float preco;
-	private int quantidade;
-	private LocalDateTime dataFabricacao;	
-	private LocalDate dataValidade;
+	private String titulo;
+	private LocalDateTime dataPublicacao;	
 	
 	public Video() {
 		id = -1;
 		descricao = "";
-		preco = 0.00F;
-		quantidade = 0;
-		dataFabricacao = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-		dataValidade = LocalDate.now().plusMonths(6); // o default é uma validade de 6 meses.
+        titulo = "";
+		dataPublicacao = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 	}
 
-	public Video(int id, String descricao, float preco, int quantidade, LocalDateTime fabricacao, LocalDate v) {
+	public Video(int id, String descricao, String titulo, LocalDateTime Publicacao) {
 		setId(id);
 		setDescricao(descricao);
-		setPreco(preco);
-		setQuantidade(quantidade);
-		setDataFabricacao(fabricacao);
-		setDataValidade(v);
+		setDataPublicacao(Publicacao);
+        setTitulo(titulo);
 	}		
 	
 	public int getID() {
@@ -38,6 +31,12 @@ public class Video {
 		this.id = id;
 	}
 
+    public String getTitulo() {
+        return titulo;
+    }
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 	
 	public String getDescricao() {
 		return descricao;
@@ -47,48 +46,17 @@ public class Video {
 		this.descricao = descricao;
 	}
 
-	public float getPreco() {
-		return preco;
+	public LocalDateTime getDataPublicacao() {
+		return dataPublicacao;
 	}
 
-	public void setPreco(float preco) {
-		this.preco = preco;
-	}
-
-	public int getQuantidade() {
-		return quantidade;
-	}
-	
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
-	}
-	
-	public LocalDate getDataValidade() {
-		return dataValidade;
-	}
-
-	public LocalDateTime getDataFabricacao() {
-		return dataFabricacao;
-	}
-
-	public void setDataFabricacao(LocalDateTime dataFabricacao) {
+	public void setDataPublicacao(LocalDateTime dataPublicacao) {
 		// Pega a Data Atual
 		LocalDateTime agora = LocalDateTime.now();
 		// Garante que a data de fabricação não pode ser futura
-		if (agora.compareTo(dataFabricacao) >= 0)
-			this.dataFabricacao = dataFabricacao;
+		if (agora.compareTo(dataPublicacao) >= 0)
+			this.dataPublicacao = dataPublicacao;
 	}
-
-	public void setDataValidade(LocalDate dataValidade) {
-		// a data de fabricação deve ser anterior é data de validade.
-		if (getDataFabricacao().isBefore(dataValidade.atStartOfDay()))
-			this.dataValidade = dataValidade;
-	}
-
-	public boolean emValidade() {
-		return LocalDateTime.now().isBefore(this.getDataValidade().atTime(23, 59));
-	}
-
 
 	/**
 	 * Método sobreposto da classe Object. É executado quando um objeto precisa
@@ -96,8 +64,8 @@ public class Video {
 	 */
 	@Override
 	public String toString() {
-		return "Produto: " + descricao + "   Preço: R$" + preco + "   Quantidade.: " + quantidade + "   Fabricação: "
-				+ dataFabricacao  + "   Data de Validade: " + dataValidade;
+		return "Titulo: " + titulo + "  Data de Publicacao: " 
+				+ dataPublicacao + "Descricao: " + descricao;
 	}
 	
 	@Override

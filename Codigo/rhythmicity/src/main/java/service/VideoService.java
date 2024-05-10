@@ -1,26 +1,25 @@
 package service;
 
 import java.util.Scanner;
-import java.time.LocalDate;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
-import dao.UserDAO;
-import model.User;
+import dao.VideoDAO;
+import model.Video;
 import spark.Request;
 import spark.Response;
 
 
 public class VideoService {
 
-	private UserDAO userDAO = new UserDAO();
+	private VideoDAO videoDAO = new VideoDAO();
 	private String form;
 	private final int FORM_INSERT = 1;
 	private final int FORM_DETAIL = 2;
 	private final int FORM_UPDATE = 3;
 	private final int FORM_ORDERBY_ID = 1;
 	private final int FORM_ORDERBY_DESCRICAO = 2;
-	private final int FORM_ORDERBY_PRECO = 3;
+	private final int FORM_ORDERBY_TITULO = 3;
 	
 	
 	public VideoService() {
@@ -29,16 +28,16 @@ public class VideoService {
 
 	
 	public void makeForm() {
-		makeForm(FORM_INSERT, new User(), FORM_ORDERBY_DESCRICAO);
+		makeForm(FORM_INSERT, new Video(), FORM_ORDERBY_DESCRICAO);
 	}
 
 	
 	public void makeForm(int orderBy) {
-		makeForm(FORM_INSERT, new User(), orderBy);
+		makeForm(FORM_INSERT, new Video(), orderBy);
 	}
 
 	
-	public void makeForm(int tipo, User produto, int orderBy) {
+	public void makeForm(int tipo, Video video, int orderBy) {
 		String nomeArquivo = "form.html";
 		form = "";
 		try{
@@ -49,127 +48,121 @@ public class VideoService {
 		    entrada.close();
 		}  catch (Exception e) { System.out.println(e.getMessage()); }
 		
-		String umProduto = "";
+		String umVideo = "";
 		if(tipo != FORM_INSERT) {
-			umProduto += "\t<table width=\"80%\" bgcolor=\"#f3f3f3\" align=\"center\">";
-			umProduto += "\t\t<tr>";
-			umProduto += "\t\t\t<td align=\"left\"><font size=\"+2\"><b>&nbsp;&nbsp;&nbsp;<a href=\"/produto/list/1\">Novo Produto</a></b></font></td>";
-			umProduto += "\t\t</tr>";
-			umProduto += "\t</table>";
-			umProduto += "\t<br>";			
+			umVideo += "\t<table width=\"80%\" bgcolor=\"#f3f3f3\" align=\"center\">";
+			umVideo += "\t\t<tr>";
+			umVideo += "\t\t\t<td align=\"left\"><font size=\"+2\"><b>&nbsp;&nbsp;&nbsp;<a href=\"/video/list/1\">Novo Video</a></b></font></td>";
+			umVideo += "\t\t</tr>";
+			umVideo += "\t</table>";
+			umVideo += "\t<br>";			
 		}
 		
 		if(tipo == FORM_INSERT || tipo == FORM_UPDATE) {
-			String action = "/produto/";
+			String action = "/video/";
 			String name, descricao, buttonLabel;
 			if (tipo == FORM_INSERT){
 				action += "insert";
-				name = "Inserir Produto";
+				name = "Inserir Video";
 				descricao = "leite, pão, ...";
 				buttonLabel = "Inserir";
 			} else {
-				action += "update/" + produto.getID();
-				name = "Atualizar Produto (ID " + produto.getID() + ")";
-				descricao = produto.getDescricao();
+				action += "update/" + video.getID();
+				name = "Atualizar Video (ID " + video.getID() + ")";
+				descricao = video.getDescricao();
 				buttonLabel = "Atualizar";
 			}
-			umProduto += "\t<form class=\"form--register\" action=\"" + action + "\" method=\"post\" id=\"form-add\">";
-			umProduto += "\t<table width=\"80%\" bgcolor=\"#f3f3f3\" align=\"center\">";
-			umProduto += "\t\t<tr>";
-			umProduto += "\t\t\t<td colspan=\"3\" align=\"left\"><font size=\"+2\"><b>&nbsp;&nbsp;&nbsp;" + name + "</b></font></td>";
-			umProduto += "\t\t</tr>";
-			umProduto += "\t\t<tr>";
-			umProduto += "\t\t\t<td colspan=\"3\" align=\"left\">&nbsp;</td>";
-			umProduto += "\t\t</tr>";
-			umProduto += "\t\t<tr>";
-			umProduto += "\t\t\t<td>&nbsp;Descrição: <input class=\"input--register\" type=\"text\" name=\"descricao\" value=\""+ descricao +"\"></td>";
-			umProduto += "\t\t\t<td>Preco: <input class=\"input--register\" type=\"text\" name=\"preco\" value=\""+ produto.getPreco() +"\"></td>";
-			umProduto += "\t\t\t<td>Quantidade: <input class=\"input--register\" type=\"text\" name=\"quantidade\" value=\""+ produto.getQuantidade() +"\"></td>";
-			umProduto += "\t\t</tr>";
-			umProduto += "\t\t<tr>";
-			umProduto += "\t\t\t<td>&nbsp;Data de fabricação: <input class=\"input--register\" type=\"text\" name=\"dataFabricacao\" value=\""+ produto.getDataFabricacao().toString() + "\"></td>";
-			umProduto += "\t\t\t<td>Data de validade: <input class=\"input--register\" type=\"text\" name=\"dataValidade\" value=\""+ produto.getDataValidade().toString() + "\"></td>";
-			umProduto += "\t\t\t<td align=\"center\"><input type=\"submit\" value=\""+ buttonLabel +"\" class=\"input--main__style input--button\"></td>";
-			umProduto += "\t\t</tr>";
-			umProduto += "\t</table>";
-			umProduto += "\t</form>";		
+			umVideo += "\t<form class=\"form--register\" action=\"" + action + "\" method=\"post\" id=\"form-add\">";
+			umVideo += "\t<table width=\"80%\" bgcolor=\"#f3f3f3\" align=\"center\">";
+			umVideo += "\t\t<tr>";
+			umVideo += "\t\t\t<td colspan=\"3\" align=\"left\"><font size=\"+2\"><b>&nbsp;&nbsp;&nbsp;" + name + "</b></font></td>";
+			umVideo += "\t\t</tr>";
+			umVideo += "\t\t<tr>";
+			umVideo += "\t\t\t<td colspan=\"3\" align=\"left\">&nbsp;</td>";
+			umVideo += "\t\t</tr>";
+			umVideo += "\t\t<tr>";
+			umVideo += "\t\t\t<td>&nbsp;Descrição: <input class=\"input--register\" type=\"text\" name=\"descricao\" value=\""+ descricao +"\"></td>";
+			umVideo += "\t\t\t<td>Titulo: <input class=\"input--register\" type=\"text\" name=\"titulo\" value=\""+ video.getTitulo() +"\"></td>";
+			umVideo += "\t\t</tr>";
+			umVideo += "\t\t<tr>";
+			umVideo += "\t\t\t<td>&nbsp;Data de fabricação: <input class=\"input--register\" type=\"text\" name=\"dataPublicacao\" value=\""+ video.getDataPublicacao().toString() + "\"></td>";
+			umVideo += "\t\t\t<td align=\"center\"><input type=\"submit\" value=\""+ buttonLabel +"\" class=\"input--main__style input--button\"></td>";
+			umVideo += "\t\t</tr>";
+			umVideo += "\t</table>";
+			umVideo += "\t</form>";		
 		} else if (tipo == FORM_DETAIL){
-			umProduto += "\t<table width=\"80%\" bgcolor=\"#f3f3f3\" align=\"center\">";
-			umProduto += "\t\t<tr>";
-			umProduto += "\t\t\t<td colspan=\"3\" align=\"left\"><font size=\"+2\"><b>&nbsp;&nbsp;&nbsp;Detalhar Produto (ID " + produto.getID() + ")</b></font></td>";
-			umProduto += "\t\t</tr>";
-			umProduto += "\t\t<tr>";
-			umProduto += "\t\t\t<td colspan=\"3\" align=\"left\">&nbsp;</td>";
-			umProduto += "\t\t</tr>";
-			umProduto += "\t\t<tr>";
-			umProduto += "\t\t\t<td>&nbsp;Descrição: "+ produto.getDescricao() +"</td>";
-			umProduto += "\t\t\t<td>Preco: "+ produto.getPreco() +"</td>";
-			umProduto += "\t\t\t<td>Quantidade: "+ produto.getQuantidade() +"</td>";
-			umProduto += "\t\t</tr>";
-			umProduto += "\t\t<tr>";
-			umProduto += "\t\t\t<td>&nbsp;Data de fabricação: "+ produto.getDataFabricacao().toString() + "</td>";
-			umProduto += "\t\t\t<td>Data de validade: "+ produto.getDataValidade().toString() + "</td>";
-			umProduto += "\t\t\t<td>&nbsp;</td>";
-			umProduto += "\t\t</tr>";
-			umProduto += "\t</table>";		
+			umVideo += "\t<table width=\"80%\" bgcolor=\"#f3f3f3\" align=\"center\">";
+			umVideo += "\t\t<tr>";
+			umVideo += "\t\t\t<td colspan=\"3\" align=\"left\"><font size=\"+2\"><b>&nbsp;&nbsp;&nbsp;Detalhar Video (ID " + video.getID() + ")</b></font></td>";
+			umVideo += "\t\t</tr>";
+			umVideo += "\t\t<tr>";
+			umVideo += "\t\t\t<td colspan=\"3\" align=\"left\">&nbsp;</td>";
+			umVideo += "\t\t</tr>";
+			umVideo += "\t\t<tr>";
+			umVideo += "\t\t\t<td>&nbsp;Descrição: "+ video.getDescricao() +"</td>";
+			umVideo += "\t\t\t<td>Titulo: "+ video.getTitulo() +"</td>";
+			umVideo += "\t\t</tr>";
+			umVideo += "\t\t<tr>";
+			umVideo += "\t\t\t<td>&nbsp;Data de fabricação: "+ video.getDataPublicacao().toString() + "</td>";
+			umVideo += "\t\t\t<td>&nbsp;</td>";
+			umVideo += "\t\t</tr>";
+			umVideo += "\t</table>";		
 		} else {
 			System.out.println("ERRO! Tipo não identificado " + tipo);
 		}
-		form = form.replaceFirst("<UM-PRODUTO>", umProduto);
+		form = form.replaceFirst("<UM-Video>", umVideo);
 		
 		String list = new String("<table width=\"80%\" align=\"center\" bgcolor=\"#f3f3f3\">");
-		list += "\n<tr><td colspan=\"6\" align=\"left\"><font size=\"+2\"><b>&nbsp;&nbsp;&nbsp;Relação de Produtos</b></font></td></tr>\n" +
+		list += "\n<tr><td colspan=\"6\" align=\"left\"><font size=\"+2\"><b>&nbsp;&nbsp;&nbsp;Relação de Videos</b></font></td></tr>\n" +
 				"\n<tr><td colspan=\"6\">&nbsp;</td></tr>\n" +
     			"\n<tr>\n" + 
-        		"\t<td><a href=\"/produto/list/" + FORM_ORDERBY_ID + "\"><b>ID</b></a></td>\n" +
-        		"\t<td><a href=\"/produto/list/" + FORM_ORDERBY_DESCRICAO + "\"><b>Descrição</b></a></td>\n" +
-        		"\t<td><a href=\"/produto/list/" + FORM_ORDERBY_PRECO + "\"><b>Preço</b></a></td>\n" +
+        		"\t<td><a href=\"/video/list/" + FORM_ORDERBY_ID + "\"><b>ID</b></a></td>\n" +
+        		"\t<td><a href=\"/video/list/" + FORM_ORDERBY_DESCRICAO + "\"><b>Descrição</b></a></td>\n" +
+        		"\t<td><a href=\"/video/list/" + FORM_ORDERBY_TITULO + "\"><b>Preço</b></a></td>\n" +
         		"\t<td width=\"100\" align=\"center\"><b>Detalhar</b></td>\n" +
         		"\t<td width=\"100\" align=\"center\"><b>Atualizar</b></td>\n" +
         		"\t<td width=\"100\" align=\"center\"><b>Excluir</b></td>\n" +
         		"</tr>\n";
 		
-		List<User> produtos;
-		if (orderBy == FORM_ORDERBY_ID) {                 	produtos = userDAO.getOrderByID();
-		} else if (orderBy == FORM_ORDERBY_DESCRICAO) {		produtos = userDAO.getOrderByDescricao();
-		} else if (orderBy == FORM_ORDERBY_PRECO) {			produtos = userDAO.getOrderByPreco();
-		} else {											produtos = userDAO.get();
+		List<Video> videos;
+		if (orderBy == FORM_ORDERBY_ID) {                 	videos = videoDAO.getOrderByID();
+		} else if (orderBy == FORM_ORDERBY_DESCRICAO) {		videos = videoDAO.getOrderByDescricao();
+		} else if (orderBy == FORM_ORDERBY_TITULO) {			videos = videoDAO.getOrderByTitulo();
+		} else {											videos = videoDAO.get();
 		}
 
 		int i = 0;
 		String bgcolor = "";
-		for (User p : produtos) {
+		for (Video p : videos) {
 			bgcolor = (i++ % 2 == 0) ? "#fff5dd" : "#dddddd";
 			list += "\n<tr bgcolor=\""+ bgcolor +"\">\n" + 
             		  "\t<td>" + p.getID() + "</td>\n" +
             		  "\t<td>" + p.getDescricao() + "</td>\n" +
-            		  "\t<td>" + p.getPreco() + "</td>\n" +
-            		  "\t<td align=\"center\" valign=\"middle\"><a href=\"/produto/" + p.getID() + "\"><img src=\"/image/detail.png\" width=\"20\" height=\"20\"/></a></td>\n" +
-            		  "\t<td align=\"center\" valign=\"middle\"><a href=\"/produto/update/" + p.getID() + "\"><img src=\"/image/update.png\" width=\"20\" height=\"20\"/></a></td>\n" +
-            		  "\t<td align=\"center\" valign=\"middle\"><a href=\"javascript:confirmarDeleteProduto('" + p.getID() + "', '" + p.getDescricao() + "', '" + p.getPreco() + "');\"><img src=\"/image/delete.png\" width=\"20\" height=\"20\"/></a></td>\n" +
+            		  "\t<td>" + p.getTitulo() + "</td>\n" +
+            		  "\t<td align=\"center\" valign=\"middle\"><a href=\"/Video/" + p.getID() + "\"><img src=\"/image/detail.png\" width=\"20\" height=\"20\"/></a></td>\n" +
+            		  "\t<td align=\"center\" valign=\"middle\"><a href=\"/Video/update/" + p.getID() + "\"><img src=\"/image/update.png\" width=\"20\" height=\"20\"/></a></td>\n" +
+            		  "\t<td align=\"center\" valign=\"middle\"><a href=\"javascript:confirmarDeleteVideo('" + p.getID() + "', '" + p.getDescricao() + "', '" + p.getTitulo() + "');\"><img src=\"/image/delete.png\" width=\"20\" height=\"20\"/></a></td>\n" +
             		  "</tr>\n";
 		}
 		list += "</table>";		
-		form = form.replaceFirst("<LISTAR-PRODUTO>", list);				
+		form = form.replaceFirst("<LISTAR-Video>", list);				
 	}
 	
 	
 	public Object insert(Request request, Response response) {
 		String descricao = request.queryParams("descricao");
-		float preco = Float.parseFloat(request.queryParams("preco"));
-		int quantidade = Integer.parseInt(request.queryParams("quantidade"));
-		LocalDateTime dataFabricacao = LocalDateTime.parse(request.queryParams("dataFabricacao"));
-		LocalDate dataValidade = LocalDate.parse(request.queryParams("dataValidade"));
+		String titulo = request.queryParams("titulo");
+		LocalDateTime dataPublicacao = LocalDateTime.parse(request.queryParams("dataPublicacao"));
 		
 		String resp = "";
 		
-		User produto = new User(-1, descricao, preco, quantidade, dataFabricacao, dataValidade);
+		Video Video = new Video(-1, descricao, titulo, dataPublicacao);
 		
-		if(userDAO.insert(produto) == true) {
-            resp = "Produto (" + descricao + ") inserido!";
+		if(videoDAO.insert(Video) == true) {
+            resp = "Video (" + descricao + ") inserido!";
             response.status(201); // 201 Created
 		} else {
-			resp = "Produto (" + descricao + ") não inserido!";
+			resp = "Video (" + descricao + ") não inserido!";
 			response.status(404); // 404 Not found
 		}
 			
@@ -180,14 +173,14 @@ public class VideoService {
 	
 	public Object get(Request request, Response response) {
 		int id = Integer.parseInt(request.params(":id"));		
-		User produto = (User) userDAO.get(id);
+		Video Video = (Video) videoDAO.get(id);
 		
-		if (produto != null) {
+		if (Video != null) {
 			response.status(200); // success
-			makeForm(FORM_DETAIL, produto, FORM_ORDERBY_DESCRICAO);
+			makeForm(FORM_DETAIL, Video, FORM_ORDERBY_DESCRICAO);
         } else {
             response.status(404); // 404 Not found
-            String resp = "Produto " + id + " não encontrado.";
+            String resp = "Video " + id + " não encontrado.";
     		makeForm();
     		form.replaceFirst("<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"\">", "<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\""+ resp +"\">");     
         }
@@ -198,14 +191,14 @@ public class VideoService {
 	
 	public Object getToUpdate(Request request, Response response) {
 		int id = Integer.parseInt(request.params(":id"));		
-		User produto = (User) userDAO.get(id);
+		Video Video = (Video) videoDAO.get(id);
 		
-		if (produto != null) {
+		if (Video != null) {
 			response.status(200); // success
-			makeForm(FORM_UPDATE, produto, FORM_ORDERBY_DESCRICAO);
+			makeForm(FORM_UPDATE, Video, FORM_ORDERBY_DESCRICAO);
         } else {
             response.status(404); // 404 Not found
-            String resp = "Produto " + id + " não encontrado.";
+            String resp = "Video " + id + " não encontrado.";
     		makeForm();
     		form.replaceFirst("<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"\">", "<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\""+ resp +"\">");     
         }
@@ -224,21 +217,19 @@ public class VideoService {
 	
 	public Object update(Request request, Response response) {
         int id = Integer.parseInt(request.params(":id"));
-		User produto = userDAO.get(id);
+		Video Video = videoDAO.get(id);
         String resp = "";       
 
-        if (produto != null) {
-        	produto.setDescricao(request.queryParams("descricao"));
-        	produto.setPreco(Float.parseFloat(request.queryParams("preco")));
-        	produto.setQuantidade(Integer.parseInt(request.queryParams("quantidade")));
-        	produto.setDataFabricacao(LocalDateTime.parse(request.queryParams("dataFabricacao")));
-        	produto.setDataValidade(LocalDate.parse(request.queryParams("dataValidade")));
-        	userDAO.update(produto);
+        if (Video != null) {
+        	Video.setDescricao(request.queryParams("descricao"));
+        	Video.setTitulo(request.queryParams("titulo"));
+        	Video.setDataPublicacao(LocalDateTime.parse(request.queryParams("dataPublicacao")));
+        	videoDAO.update(Video);
         	response.status(200); // success
-            resp = "Produto (ID " + produto.getID() + ") atualizado!";
+            resp = "Video (ID " + Video.getID() + ") atualizado!";
         } else {
             response.status(404); // 404 Not found
-            resp = "Produto (ID \" + produto.getId() + \") não encontrado!";
+            resp = "Video (ID \" + Video.getId() + \") não encontrado!";
         }
 		makeForm();
 		return form.replaceFirst("<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"\">", "<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\""+ resp +"\">");
@@ -247,16 +238,16 @@ public class VideoService {
 	
 	public Object delete(Request request, Response response) {
         int id = Integer.parseInt(request.params(":id"));
-        User produto = userDAO.get(id);
+        Video Video = videoDAO.get(id);
         String resp = "";       
 
-        if (produto != null) {
-            userDAO.delete(id);
+        if (Video != null) {
+            videoDAO.delete(id);
             response.status(200); // success
-            resp = "Produto (" + id + ") excluído!";
+            resp = "Video (" + id + ") excluído!";
         } else {
             response.status(404); // 404 Not found
-            resp = "Produto (" + id + ") não encontrado!";
+            resp = "Video (" + id + ") não encontrado!";
         }
 		makeForm();
 		return form.replaceFirst("<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"\">", "<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\""+ resp +"\">");
