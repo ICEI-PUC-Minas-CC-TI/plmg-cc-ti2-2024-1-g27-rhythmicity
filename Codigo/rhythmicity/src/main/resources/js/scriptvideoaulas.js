@@ -1,7 +1,7 @@
 const API_KEY = "AIzaSyDRSPb4UA7JsqcNbx0B1RrmC03TRAmTQGI";
 
-// Define a variável global PLAYLIST_ID
-let PLAYLIST_ID = "";
+// Adiciona eventos de clique aos botões para chamar as funções correspondentes
+console.log("playlist url: ", PLAYLIST_ID);
 
 // Funções para alterar o valor da variável PLAYLIST_ID para diferentes URLs
 
