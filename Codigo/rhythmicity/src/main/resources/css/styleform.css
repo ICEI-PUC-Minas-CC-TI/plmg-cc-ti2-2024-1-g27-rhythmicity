@@ -1,4 +1,3 @@
-/*Formulários de Login e Cadastro / GABRIEL APOCALYPSE ROCHA FARIA*/
 
 /*Fontes*/
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
@@ -21,7 +20,7 @@ body {
 .container {
     height: 100vh;
     width: 100%;
-    background-image: url('/images/fundo4.jpg');
+    background-image: url('/Codigo/rhythmicity/src/main/resources/images/fundo4.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;

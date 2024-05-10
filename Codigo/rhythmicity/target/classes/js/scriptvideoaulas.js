@@ -1,5 +1,9 @@
 const API_KEY = "AIzaSyDRSPb4UA7JsqcNbx0B1RrmC03TRAmTQGI";
-const PLAYLIST_ID = "PLrVhyUnEQMV_xr9310DMRkMnqjIm8iExQ";
+
+// Define a variável global PLAYLIST_ID
+let PLAYLIST_ID = "";
+
+// Funções para alterar o valor da variável PLAYLIST_ID para diferentes URLs
 
 function loadVideosFromYouTube() {
   const playlist_area = document.querySelector(".playlist");

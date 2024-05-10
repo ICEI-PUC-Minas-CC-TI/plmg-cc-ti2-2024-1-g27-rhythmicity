@@ -82,7 +82,7 @@ h2 {
     height: 650px;
     padding-left: 100px;
     padding-right: 100px;
-    background-image: url('/Codigo/src/main/resources/public/images/bg-introducao6.jpg');
+    background-image: url('/Codigo/rhythmicity/src/main/resources/images/bg-introducao6.jpg');
     display: flex;
     overflow: hidden;
 }
@@ -104,8 +104,37 @@ h2 {
     left: 0;
 }
 
-
-
+/* Estilos básicos para o botão */
+.btnPlaylist {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #161416;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 100px;
+  }
+  
+  /* Estilo quando o mouse passa sobre o botão */
+  .btnPlaylist:hover {
+    background-color: #262326;
+  }
+  
+  /* Estilo quando o botão é pressionado */
+  .btnPlaylist:active {
+    background-color: #262326;
+  }
+  
+  /* Estilo para botões desabilitados */
+  .btnPlaylist:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
 
 
 

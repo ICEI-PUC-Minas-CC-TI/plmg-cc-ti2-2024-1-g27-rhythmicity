@@ -33,15 +33,13 @@
     </div>
 </header>
 
-<!--Formulários de Login e Cadastro / GABRIEL APOCALYPSE ROCHA FARIA-->
 <section class="container forms">
 
-<!--Caixa maior com requerimento de dados para realização de Login / GABRIEL APOCALYPSE ROCHA FARIA-->
-
+    <!-- TELA DE LOGIN -->
     <div class="form login">
         <div class="form-content">
             <header class="header-form">Login</header>
-            <form action="#">
+            <form action="/login" method="post" class="formlogin">
                 <div class="field input-field">
                     <input type="email" placeholder="E-mail" class="input">
                 </div>
@@ -83,12 +81,11 @@
 
     </div>
 
-<!--Segunda caixa (Cadastrar-se) / GABRIEL APOCALYPSE ROCHA FARIA-->
-
+    <!-- TELA DE CADASTRO -->
     <div class="form signup">
         <div class="form-content">
             <header class="header-form">Cadastrar-se</header>
-            <form action="#">
+            <form action="/signup" method="post" class="formsignup">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
                     <input type="text" placeholder="Nome" id="first-name">
                     <input type="text" placeholder="Sobrenome" id="last-name">
@@ -138,7 +135,6 @@
 
     </section>
 
-<!--Script navbar / FELIPE VILHENA DIAS-->
     <script>
         // variaveis
         let searchBtn = document.querySelector('.searchBtn');
