@@ -5,15 +5,15 @@ import java.time.LocalDate;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
-import dao.ProdutoDAO;
-import model.Produto;
+import dao.UserDAO;
+import model.User;
 import spark.Request;
 import spark.Response;
 
 
-public class ProdutoService {
+public class VideoService {
 
-	private ProdutoDAO produtoDAO = new ProdutoDAO();
+	private UserDAO userDAO = new UserDAO();
 	private String form;
 	private final int FORM_INSERT = 1;
 	private final int FORM_DETAIL = 2;
@@ -23,22 +23,22 @@ public class ProdutoService {
 	private final int FORM_ORDERBY_PRECO = 3;
 	
 	
-	public ProdutoService() {
+	public VideoService() {
 		makeForm();
 	}
 
 	
 	public void makeForm() {
-		makeForm(FORM_INSERT, new Produto(), FORM_ORDERBY_DESCRICAO);
+		makeForm(FORM_INSERT, new User(), FORM_ORDERBY_DESCRICAO);
 	}
 
 	
 	public void makeForm(int orderBy) {
-		makeForm(FORM_INSERT, new Produto(), orderBy);
+		makeForm(FORM_INSERT, new User(), orderBy);
 	}
 
 	
-	public void makeForm(int tipo, Produto produto, int orderBy) {
+	public void makeForm(int tipo, User produto, int orderBy) {
 		String nomeArquivo = "form.html";
 		form = "";
 		try{
@@ -129,16 +129,16 @@ public class ProdutoService {
         		"\t<td width=\"100\" align=\"center\"><b>Excluir</b></td>\n" +
         		"</tr>\n";
 		
-		List<Produto> produtos;
-		if (orderBy == FORM_ORDERBY_ID) {                 	produtos = produtoDAO.getOrderByID();
-		} else if (orderBy == FORM_ORDERBY_DESCRICAO) {		produtos = produtoDAO.getOrderByDescricao();
-		} else if (orderBy == FORM_ORDERBY_PRECO) {			produtos = produtoDAO.getOrderByPreco();
-		} else {											produtos = produtoDAO.get();
+		List<User> produtos;
+		if (orderBy == FORM_ORDERBY_ID) {                 	produtos = userDAO.getOrderByID();
+		} else if (orderBy == FORM_ORDERBY_DESCRICAO) {		produtos = userDAO.getOrderByDescricao();
+		} else if (orderBy == FORM_ORDERBY_PRECO) {			produtos = userDAO.getOrderByPreco();
+		} else {											produtos = userDAO.get();
 		}
 
 		int i = 0;
 		String bgcolor = "";
-		for (Produto p : produtos) {
+		for (User p : produtos) {
 			bgcolor = (i++ % 2 == 0) ? "#fff5dd" : "#dddddd";
 			list += "\n<tr bgcolor=\""+ bgcolor +"\">\n" + 
             		  "\t<td>" + p.getID() + "</td>\n" +
@@ -163,9 +163,9 @@ public class ProdutoService {
 		
 		String resp = "";
 		
-		Produto produto = new Produto(-1, descricao, preco, quantidade, dataFabricacao, dataValidade);
+		User produto = new User(-1, descricao, preco, quantidade, dataFabricacao, dataValidade);
 		
-		if(produtoDAO.insert(produto) == true) {
+		if(userDAO.insert(produto) == true) {
             resp = "Produto (" + descricao + ") inserido!";
             response.status(201); // 201 Created
 		} else {
@@ -180,7 +180,7 @@ public class ProdutoService {
 	
 	public Object get(Request request, Response response) {
 		int id = Integer.parseInt(request.params(":id"));		
-		Produto produto = (Produto) produtoDAO.get(id);
+		User produto = (User) userDAO.get(id);
 		
 		if (produto != null) {
 			response.status(200); // success
@@ -198,7 +198,7 @@ public class ProdutoService {
 	
 	public Object getToUpdate(Request request, Response response) {
 		int id = Integer.parseInt(request.params(":id"));		
-		Produto produto = (Produto) produtoDAO.get(id);
+		User produto = (User) userDAO.get(id);
 		
 		if (produto != null) {
 			response.status(200); // success
@@ -224,7 +224,7 @@ public class ProdutoService {
 	
 	public Object update(Request request, Response response) {
         int id = Integer.parseInt(request.params(":id"));
-		Produto produto = produtoDAO.get(id);
+		User produto = userDAO.get(id);
         String resp = "";       
 
         if (produto != null) {
@@ -233,7 +233,7 @@ public class ProdutoService {
         	produto.setQuantidade(Integer.parseInt(request.queryParams("quantidade")));
         	produto.setDataFabricacao(LocalDateTime.parse(request.queryParams("dataFabricacao")));
         	produto.setDataValidade(LocalDate.parse(request.queryParams("dataValidade")));
-        	produtoDAO.update(produto);
+        	userDAO.update(produto);
         	response.status(200); // success
             resp = "Produto (ID " + produto.getID() + ") atualizado!";
         } else {
@@ -247,11 +247,11 @@ public class ProdutoService {
 	
 	public Object delete(Request request, Response response) {
         int id = Integer.parseInt(request.params(":id"));
-        Produto produto = produtoDAO.get(id);
+        User produto = userDAO.get(id);
         String resp = "";       
 
         if (produto != null) {
-            produtoDAO.delete(id);
+            userDAO.delete(id);
             response.status(200); // success
             resp = "Produto (" + id + ") excluído!";
         } else {

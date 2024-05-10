@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-public class Produto {
+public class Video {
 	private int id;
 	private String descricao;
 	private float preco;
@@ -12,7 +12,7 @@ public class Produto {
 	private LocalDateTime dataFabricacao;	
 	private LocalDate dataValidade;
 	
-	public Produto() {
+	public Video() {
 		id = -1;
 		descricao = "";
 		preco = 0.00F;
@@ -21,7 +21,7 @@ public class Produto {
 		dataValidade = LocalDate.now().plusMonths(6); // o default é uma validade de 6 meses.
 	}
 
-	public Produto(int id, String descricao, float preco, int quantidade, LocalDateTime fabricacao, LocalDate v) {
+	public Video(int id, String descricao, float preco, int quantidade, LocalDateTime fabricacao, LocalDate v) {
 		setId(id);
 		setDescricao(descricao);
 		setPreco(preco);
@@ -102,6 +102,6 @@ public class Produto {
 	
 	@Override
 	public boolean equals(Object obj) {
-		return (this.getID() == ((Produto) obj).getID());
+		return (this.getID() == ((Video) obj).getID());
 	}	
 }

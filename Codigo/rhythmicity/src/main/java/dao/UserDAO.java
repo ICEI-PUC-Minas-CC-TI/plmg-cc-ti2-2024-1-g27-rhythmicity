@@ -1,6 +1,6 @@
 package dao;
 
-import model.Produto;
+import model.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProdutoDAO extends DAO {	
-	public ProdutoDAO() {
+public class UserDAO extends DAO {	
+	public UserDAO() {
 		super();
 		conectar();
 	}
@@ -24,7 +24,7 @@ public class ProdutoDAO extends DAO {
 	}
 	
 	
-	public boolean insert(Produto produto) {
+	public boolean insert(User produto) {
 		boolean status = false;
 		try {
 			String sql = "INSERT INTO produto (descricao, preco, quantidade, datafabricacao, datavalidade) "
@@ -43,15 +43,15 @@ public class ProdutoDAO extends DAO {
 	}
 
 	
-	public Produto get(int id) {
-		Produto produto = null;
+	public User get(int id) {
+		User produto = null;
 		
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			String sql = "SELECT * FROM produto WHERE id="+id;
 			ResultSet rs = st.executeQuery(sql);	
 	        if(rs.next()){            
-	        	 produto = new Produto(rs.getInt("id"), rs.getString("descricao"), (float)rs.getDouble("preco"), 
+	        	 produto = new User(rs.getInt("id"), rs.getString("descricao"), (float)rs.getDouble("preco"), 
 	                				   rs.getInt("quantidade"), 
 	        			               rs.getTimestamp("datafabricacao").toLocalDateTime(),
 	        			               rs.getDate("datavalidade").toLocalDate());
@@ -64,35 +64,35 @@ public class ProdutoDAO extends DAO {
 	}
 	
 	
-	public List<Produto> get() {
+	public List<User> get() {
 		return get("");
 	}
 
 	
-	public List<Produto> getOrderByID() {
+	public List<User> getOrderByID() {
 		return get("id");		
 	}
 	
 	
-	public List<Produto> getOrderByDescricao() {
+	public List<User> getOrderByDescricao() {
 		return get("descricao");		
 	}
 	
 	
-	public List<Produto> getOrderByPreco() {
+	public List<User> getOrderByPreco() {
 		return get("preco");		
 	}
 	
 	
-	private List<Produto> get(String orderBy) {
-		List<Produto> produtos = new ArrayList<Produto>();
+	private List<User> get(String orderBy) {
+		List<User> produtos = new ArrayList<User>();
 		
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			String sql = "SELECT * FROM produto" + ((orderBy.trim().length() == 0) ? "" : (" ORDER BY " + orderBy));
 			ResultSet rs = st.executeQuery(sql);	           
 	        while(rs.next()) {	            	
-	        	Produto p = new Produto(rs.getInt("id"), rs.getString("descricao"), (float)rs.getDouble("preco"), 
+	        	User p = new User(rs.getInt("id"), rs.getString("descricao"), (float)rs.getDouble("preco"), 
 	        			                rs.getInt("quantidade"),
 	        			                rs.getTimestamp("datafabricacao").toLocalDateTime(),
 	        			                rs.getDate("datavalidade").toLocalDate());
@@ -106,7 +106,7 @@ public class ProdutoDAO extends DAO {
 	}
 	
 	
-	public boolean update(Produto produto) {
+	public boolean update(User produto) {
 		boolean status = false;
 		try {  
 			String sql = "UPDATE produto SET descricao = '" + produto.getDescricao() + "', "
