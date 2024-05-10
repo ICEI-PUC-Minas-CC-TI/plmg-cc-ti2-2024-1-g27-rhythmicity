@@ -6,24 +6,24 @@ import service.UserService;
 
 public class Aplicacao {
 	
-	private static UserService produtoService = new UserService();
+	private static UserService userService = new UserService();
 	
     public static void main(String[] args) {
         port(6789);
         
         staticFiles.location("/public");
         
-        post("/produto/insert", (request, response) -> produtoService.insert(request, response));
+        post("/user/insert", (request, response) -> userService.insert(request, response));
 
-        get("/produto/:id", (request, response) -> produtoService.get(request, response));
+        get("/user/:id", (request, response) -> userService.get(request, response));
         
-        get("/produto/list/:orderby", (request, response) -> produtoService.getAll(request, response));
+        get("/user/list/:orderby", (request, response) -> userService.getAll(request, response));
 
-        get("/produto/update/:id", (request, response) -> produtoService.getToUpdate(request, response));
+        get("/user/update/:id", (request, response) -> userService.getToUpdate(request, response));
         
-        post("/produto/update/:id", (request, response) -> produtoService.update(request, response));
+        post("/user/update/:id", (request, response) -> userService.update(request, response));
            
-        get("/produto/delete/:id", (request, response) -> produtoService.delete(request, response));
+        get("/user/delete/:id", (request, response) -> userService.delete(request, response));
 
              
     }
