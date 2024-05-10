@@ -1,4 +1,5 @@
 const API_KEY = "AIzaSyDRSPb4UA7JsqcNbx0B1RrmC03TRAmTQGI";
+const PLAYLIST_ID = "PLPXmN3KeXMo6PSh5-XBjw5NUKpycSic3d";
 
 // Adiciona eventos de clique aos botões para chamar as funções correspondentes
 console.log("playlist url: ", PLAYLIST_ID);
