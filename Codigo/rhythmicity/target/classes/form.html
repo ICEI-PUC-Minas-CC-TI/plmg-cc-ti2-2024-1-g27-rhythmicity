@@ -9,8 +9,8 @@
 
 function confirmarDeleteProduto(id, descricao, preco) {  
 	
-    if (confirm('Confirmar a exclusão do produto [' + descricao + '] (ID ' + id + ') com preço R$ ' + preco)) {  
-        location.href = '/produto/delete/' + id;
+    if (confirm('Confirmar a exclusão do usuario [' + descricao + '] (ID ' + id + ') com preço R$ ' + preco)) {  
+        location.href = '/usuario/delete/' + id;
     }
 }
 function onLoad() {
@@ -24,9 +24,9 @@ function onLoad() {
 <body onload="onLoad()">
 	<h1>Controle de Estoque</h1>
 	<input type="hidden" id="msg" name="msg" value="">
-    <UM-PRODUTO>
+    <UM-USUARIO>
 	<br>
-	<LISTAR-PRODUTO>
+	<LISTAR-USUARIO>
 	<style>
 * {
 	box-sizing: border-box;
