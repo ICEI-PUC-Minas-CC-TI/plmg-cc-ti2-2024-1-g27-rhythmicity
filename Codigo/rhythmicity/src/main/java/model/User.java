@@ -7,21 +7,21 @@ public class User {
 	private int id;
 	private String email;
 	private String password;
-	private LocalDateTime dataCadastro;
+	private LocalDateTime dataNascimento;
 	private String playlistEstudos;
 	
 	public User() {
 		id = -1;
 		email = "";
 		password = "";
-		dataCadastro = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+		dataNascimento = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 	}
 
-	public User(int id, String email, String password, LocalDateTime Cadastro) {
+	public User(int id, String email, String password, LocalDateTime Nascimento) {
 		setId(id);
 		setEmail(email);
 		setPassword(password);
-		setDataCadastro(Cadastro);
+		setDataNascimento(Nascimento);
 	}		
 	
 	public int getID() {
@@ -49,16 +49,16 @@ public class User {
 		this.password = password;
 	}
 
-	public LocalDateTime getDataCadastro() {
-		return dataCadastro;
+	public LocalDateTime getDataNascimento() {
+		return dataNascimento;
 	}
 
-	public void setDataCadastro(LocalDateTime dataCadastro) {
+	public void setDataNascimento(LocalDateTime dataNascimento) {
 		// Pega a Data Atual
 		LocalDateTime agora = LocalDateTime.now();
 		// Garante que a data de fabricação não pode ser futura
-		if (agora.compareTo(dataCadastro) >= 0)
-			this.dataCadastro = dataCadastro;
+		if (agora.compareTo(dataNascimento) >= 0)
+			this.dataNascimento = dataNascimento;
 	}
 	
 
@@ -77,7 +77,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "Email: " + email + "   Data de cadastro: "
-				+ dataCadastro;
+				+ dataNascimento;
 	}
 	
 	@Override

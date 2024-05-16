@@ -92,7 +92,7 @@ public class UserService {
 			umUsuario += "\t\t\t<td>Password: <input class=\"input--register\" type=\"text\" name=\"password\" value=\""+ usuario.getPassword() +"\"></td>";
 			umUsuario += "\t\t</tr>";
 			umUsuario += "\t\t<tr>";
-			umUsuario += "\t\t\t<td>&nbsp;Data de fabricação: <input class=\"input--register\" type=\"text\" name=\"dataCadastro\" value=\""+ usuario.getDataCadastro().toString() + "\"></td>";
+			umUsuario += "\t\t\t<td>&nbsp;Data de fabricação: <input class=\"input--register\" type=\"text\" name=\"dataCadastro\" value=\""+ usuario.getDataNascimento().toString() + "\"></td>";
 			umUsuario += "\t\t\t<td align=\"center\"><input type=\"submit\" value=\""+ buttonLabel +"\" class=\"input--main__style input--button\"></td>";
 			umUsuario += "\t\t</tr>";
 			umUsuario += "\t</table>";
@@ -110,7 +110,7 @@ public class UserService {
 			umUsuario += "\t\t\t<td>Password: "+ usuario.getPassword() +"</td>";
 			umUsuario += "\t\t</tr>";
 			umUsuario += "\t\t<tr>";
-			umUsuario += "\t\t\t<td>&nbsp;Data de fabricação: "+ usuario.getDataCadastro().toString() + "</td>";
+			umUsuario += "\t\t\t<td>&nbsp;Data de fabricação: "+ usuario.getDataNascimento().toString() + "</td>";
 			umUsuario += "\t\t\t<td>&nbsp;</td>";
 			umUsuario += "\t\t</tr>";
 			umUsuario += "\t</table>";		
@@ -230,7 +230,7 @@ public class UserService {
         if (usuario != null) {
         	usuario.setEmail(request.queryParams("email"));
         	usuario.setPassword(request.queryParams("password"));
-        	usuario.setDataCadastro(LocalDateTime.parse(request.queryParams("dataCadastro")));
+        	usuario.setDataNascimento(LocalDateTime.parse(request.queryParams("dataCadastro")));
         	userDAO.update(usuario);
         	response.status(200); // success
             resp = "Usuario (ID " + usuario.getID() + ") atualizado!";

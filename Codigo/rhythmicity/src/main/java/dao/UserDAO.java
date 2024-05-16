@@ -27,7 +27,7 @@ public class UserDAO extends DAO {
 					+ "VALUES ('" + usuario.getEmail() + "', "
 					+ usuario.getPassword() + ", ?);";
 			PreparedStatement st = conexao.prepareStatement(sql);
-			st.setTimestamp(1, Timestamp.valueOf(usuario.getDataCadastro()));
+			st.setTimestamp(1, Timestamp.valueOf(usuario.getDataNascimento()));
 			st.executeUpdate();
 			st.close();
 			status = true;
@@ -98,7 +98,7 @@ public class UserDAO extends DAO {
 					+ "datacadastro = ?, "
 					+ "WHERE id = " + usuario.getID();
 			PreparedStatement st = conexao.prepareStatement(sql);
-			st.setTimestamp(1, Timestamp.valueOf(usuario.getDataCadastro()));
+			st.setTimestamp(1, Timestamp.valueOf(usuario.getDataNascimento()));
 			st.executeUpdate();
 			st.close();
 			status = true;
