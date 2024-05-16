@@ -2,6 +2,8 @@ package service;
 
 import java.util.Scanner;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.List;
 import dao.UserDAO;
@@ -38,9 +40,14 @@ public class UserService {
 
 	
 	public void makeForm(int tipo, User usuario, int orderBy) {
-		String nomeArquivo = "form.html";
+		String nomeArquivo = "/form.html";
 		form = "";
-		try{
+		try (InputStream inputStream = getClass().getResourceAsStream(nomeArquivo)){
+			if (inputStream == null) {
+                throw new FileNotFoundException("Arquivo " + nomeArquivo + " não encontrado");
+            }else {
+				System.out.println("Arquivo form.html encontrado");
+			}
 			Scanner entrada = new Scanner(new File(nomeArquivo));
 		    while(entrada.hasNext()){
 		    	form += (entrada.nextLine() + "\n");

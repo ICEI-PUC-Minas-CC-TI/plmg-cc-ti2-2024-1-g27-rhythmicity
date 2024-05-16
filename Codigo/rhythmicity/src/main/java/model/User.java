@@ -7,7 +7,8 @@ public class User {
 	private int id;
 	private String email;
 	private String password;
-	private LocalDateTime dataCadastro;	
+	private LocalDateTime dataCadastro;
+	private String playlistEstudos;
 	
 	public User() {
 		id = -1;
@@ -58,6 +59,15 @@ public class User {
 		// Garante que a data de fabricação não pode ser futura
 		if (agora.compareTo(dataCadastro) >= 0)
 			this.dataCadastro = dataCadastro;
+	}
+	
+
+	public String getPlaylistEstudos() {
+		return playlistEstudos;
+	}
+
+	public void setPlaylistEstudos(String playlistEstudos) {
+		this.playlistEstudos = playlistEstudos;
 	}
 
 	/**

@@ -38,7 +38,7 @@ public class VideoService {
 
 	
 	public void makeForm(int tipo, Video video, int orderBy) {
-		String nomeArquivo = "form.html";
+		String nomeArquivo = "/form.html";
 		form = "";
 		try{
 			Scanner entrada = new Scanner(new File(nomeArquivo));
