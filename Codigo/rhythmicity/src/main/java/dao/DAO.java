@@ -1,5 +1,7 @@
 package dao;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.sql.*;
 
 public class DAO {
@@ -43,5 +45,11 @@ public class DAO {
 			System.err.println(e.getMessage());
 		}
 		return status;
+	}
+	
+	public static String toMD5(String senha) throws Exception {
+		MessageDigest m=MessageDigest.getInstance("MD5");
+		m.update(senha.getBytes(),0, senha.length());
+		return new BigInteger(1,m.digest()).toString(16);
 	}
 }

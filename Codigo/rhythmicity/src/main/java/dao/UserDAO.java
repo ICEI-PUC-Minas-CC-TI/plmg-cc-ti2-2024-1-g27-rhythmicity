@@ -20,11 +20,11 @@ public class UserDAO extends DAO {
         close();
     }
 
-    public boolean insert(User user) {
+    public boolean insert(User user) throws Exception {
         String sql = "INSERT INTO usuario (email, senha, nome, data_cadastro) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, user.getEmail());
-            stmt.setString(2, user.getSenha());
+            stmt.setString(2, DAO.toMD5(user.getSenha()));
             stmt.setString(3, user.getNome());
             stmt.setTimestamp(4, Timestamp.valueOf(user.getDataCadastro()));
             int affectedRows = stmt.executeUpdate();
@@ -45,12 +45,10 @@ public class UserDAO extends DAO {
         }
     }
 
-    public User getByEmailAndPassword(String email, String senha) {
+    public User getByEmailAndPassword(String email, String senha) throws Exception {
         try {
-            String sql = "SELECT * FROM usuario WHERE email = ? AND senha = ?";
+            String sql = "SELECT * FROM usuario WHERE email = '" + email + "' AND senha = '" + DAO.toMD5(senha) + "'";
             PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setString(1, email);
-            stmt.setString(2, senha);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -62,6 +60,22 @@ public class UserDAO extends DAO {
         return null;
     }
 
+    public User getPorNome(String nome) {
+        try {
+            String sql = "SELECT * FROM usuario WHERE nome = ?";
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, nome);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new User(rs.getInt("id"), rs.getString("email"), rs.getString("senha"), rs.getString("nome"), rs.getTimestamp("data_cadastro").toLocalDateTime());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
     public User get(int id) {
         User usuario = null;
 
@@ -126,7 +140,13 @@ public class UserDAO extends DAO {
     public List<User> getOrderBySenha() {
         return get("senha");
     }
-
+    
+    public List<User> getOrderByNome(){
+    	return get("nome");
+    }
+    public List<User> getOrderByDataCadastro(){
+    	return get("data_cadastro");
+    }
     private List<User> get(String orderBy) {
         List<User> usuarios = new ArrayList<User>();
 
@@ -176,4 +196,5 @@ public class UserDAO extends DAO {
         }
         return status;
     }
+    
 }
