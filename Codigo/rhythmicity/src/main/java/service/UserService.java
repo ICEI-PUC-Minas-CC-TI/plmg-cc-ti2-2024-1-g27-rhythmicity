@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.*;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import dao.DAO;
 import dao.UserDAO;
@@ -41,7 +43,10 @@ public class UserService {
 
 	
 	public void makeForm(int tipo, User user, int orderBy) {
-		String nomeArquivo = "cruds.html";
+		Path resourcePath = Paths.get("src", "main", "resources", "public");
+
+        Path filePath = resourcePath.resolve("cruds.html"); 
+        String nomeArquivo = ""+filePath;
 		form = "";
 		try{
 			Scanner entrada = new Scanner(new File(nomeArquivo));
@@ -94,13 +99,12 @@ public class UserService {
 			umUser += "\t\t\t<td colspan=\"3\" align=\"left\">&nbsp;</td>";
 			umUser += "\t\t</tr>";
 			umUser += "\t\t<tr>";
-			umUser += "\t\t\t<td>&nbsp;Usuário: <input class=\"input--register\" type=\"text\" name=\"usuario\" placeholder =\""+ usuario +"\"></td>";
+			//umUser += "\t\t\t<td>&nbsp;Usuário: <input class=\"input--register\" type=\"text\" name=\"usuario\" placeholder =\""+ usuario +"\"></td>";
 			umUser += "\t\t\t<td>Senha: <input class=\"input--register\" type=\"password\" name=\"senha\" placeholder=\""+ senha +"\"></td>";
 			umUser += "\t\t\t<td>E-mail: <input class=\"input--register\" type=\"email\" name=\"email\" placeholder=\""+ email +"\"></td>";
 			umUser += "\t\t</tr>";
 			umUser += "\t\t<tr>";
 			umUser += "\t\t\t<td>&nbsp;Nome: <input class=\"input--register\" type=\"text\" name=\"nome\" placeholder=\""+ nome + "\"></td>";
-			umUser += "\t\t\t<td>Data de Nascimento: <input class=\"input--register\" type=\"date\" name=\"data_cadastro\" placeholder=\""+ data_cadastro + "\"></td>";
 			//umUser += "\t\t\t<td>Gerenciador: <input class=\"input--register\" type=\"text\" name=\"gerenciador\" placeholder=\""+ gerenciador + "\"></td>";
 			umUser += "\t\t\t<td align=\"center\"><input type=\"submit\" value=\""+ buttonLabel +"\" class=\"input--main__style input--button\"></td>";
 			umUser += "\t\t</tr>";
@@ -121,7 +125,7 @@ public class UserService {
 			umUser += "\t\t</tr>";
 			umUser += "\t\t<tr>";
 			umUser += "\t\t\t<td>&nbsp;Nome: "+ user.getNome() + "</td>";
-			umUser += "\t\t\t<td>Idade: "+ user.getDataCadastro().toString() + "</td>";
+			umUser += "\t\t\t<td>Data de Cadastro: "+ user.getDataCadastro().toString() + "</td>";
 			//umUser += "\t\t\t<td>Gerenciador: "+ user.getGerenciador() + "</td>";
 			umUser += "\t\t\t<td>&nbsp;</td>";
 			umUser += "\t\t</tr>";
@@ -137,7 +141,7 @@ public class UserService {
     			"\n<tr>\n" + 
         		"\t<td><a href=\"/usuario/list/" + FORM_ORDERBY_Id + "\"><b>Id</b></a></td>\n" +
         		"\t<td><a href=\"/usuario/list/" + FORM_ORDERBY_NOME + "\"><b>Usuario</b></a></td>\n" +
-        		"\t<td><a href=\"/usuario/list/" + FORM_ORDERBY_DATA_NASCIMENTO + "\"><b>Idade</b></a></td>\n" +
+        		"\t<td><a href=\"/usuario/list/" + FORM_ORDERBY_DATA_NASCIMENTO + "\"><b>Data de Cadastro</b></a></td>\n" +
         		"\t<td width=\"100\" align=\"center\"><b>Detalhar</b></td>\n" +
         		"\t<td width=\"100\" align=\"center\"><b>Atualizar</b></td>\n" +
         		"\t<td width=\"100\" align=\"center\"><b>Excluir</b></td>\n" +
@@ -158,7 +162,7 @@ public class UserService {
 			color = (i % 2 == 0) ? "#09081C" : "#dddddd";
 			list += "\n<tr bgcolor=\"" + bgcolor + "\">\n" +
 					"\t<td style=\"color: " + color + ";\">" + p.getID() + "</td>\n" +
-					//"\t<td style=\"color: " + color + ";\">" + p.getUsuario() + "</td>\n" +
+					"\t<td style=\"color: " + color + ";\">" + p.getNome() + "</td>\n" +
 					"\t<td style=\"color: " + color + ";\">" + p.getDataCadastro().toString() + "</td>\n" +
 					"\t<td align=\"center\" valign=\"middle\"><a href=\"/usuario/" + p.getID() + "\"><img src=\"/image/detail.png\" width=\"20\" height=\"20\"/></a></td>\n" +
 					"\t<td align=\"center\" valign=\"middle\"><a href=\"/usuario/update/" + p.getID() + "\"><img src=\"/image/update.png\" width=\"20\" height=\"20\"/></a></td>\n" +
@@ -224,15 +228,11 @@ public class UserService {
 
     // Método para buscar todos os usuários
     public Object getAll(Request request, Response response) {
-        List<User> usuarios = userDAO.getAll();
-
-        if (!usuarios.isEmpty()) {
-            response.status(200);
-            return usuarios;
-        } else {
-            response.status(404); // 404 Not Found
-            return "Nenhum usuário encontrado!";
-        }
+    	int orderBy = Integer.parseInt(request.params(":orderby"));
+        makeForm(orderBy);
+        response.header("Content-Type", "text/html");
+        response.header("Content-Encoding", "UTF-8");
+        return form;
     }
 
     // Método para atualizar um usuário
@@ -260,14 +260,19 @@ public class UserService {
 
     // Método para deletar um usuário
     public Object delete(Request request, Response response) {
-        int id = Integer.parseInt(request.params(":id"));
+    	int id = Integer.parseInt(request.params(":id"));
+        User user = userDAO.get(id);
+        String resp = "";
 
-        if (userDAO.delete(id)) {
-            response.status(200); // 200 OK
-            return "Usuário deletado com sucesso!";
+        if (user != null) {
+            userDAO.delete(id);
+            response.status(200); // success
+            resp = "User (" + id + ") excluído!";
         } else {
-            response.status(400); // 400 Bad Request
-            return "Erro ao deletar usuário!";
+            response.status(404); // 404 Not found
+            resp = "User (" + id + ") não encontrado!";
         }
+        makeForm();
+        return form.replaceFirst("<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"\">", "<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"" + resp + "\">");
     }
 }
