@@ -2,10 +2,13 @@ package service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 import java.util.*;
 import java.io.File;
+
+import dao.DAO;
 import dao.UserDAO;
 import model.User;
 import spark.Request;
@@ -52,14 +55,14 @@ public class UserService {
 		if(tipo != FORM_INSERT) {
 			umUser += "\t<table width=\"80%\" bgcolor=\"#f3f3f3\" align=\"center\">";
 			umUser += "\t\t<tr>";
-			umUser += "\t\t\t<td align=\"left\"><font size=\"+2\"><b>&nbsp;&nbsp;&nbsp;<a href=\"/user/list/1\">Novo User</a></b></font></td>";
+			umUser += "\t\t\t<td align=\"left\"><font size=\"+2\"><b>&nbsp;&nbsp;&nbsp;<a href=\"/usuario/list/1\">Novo User</a></b></font></td>";
 			umUser += "\t\t</tr>";
 			umUser += "\t</table>";
 			umUser += "\t<br>";			
 		}
 		
 		if(tipo == FORM_INSERT || tipo == FORM_UPDATE) {
-			String action = "/user/";
+			String action = "/usuario/";
 			String usuario, nome, senha, email, buttonLabel;
 			LocalDateTime data_cadastro;
 			//boolean gerenciador;
@@ -132,9 +135,9 @@ public class UserService {
 		list += "\n<tr><td colspan=\"6\" align=\"left\"><font size=\"+2\"><b>&nbsp;&nbsp;&nbsp;Relação de Users</b></font></td></tr>\n" +
 				"\n<tr><td colspan=\"6\">&nbsp;</td></tr>\n" +
     			"\n<tr>\n" + 
-        		"\t<td><a href=\"/user/list/" + FORM_ORDERBY_Id + "\"><b>Id</b></a></td>\n" +
-        		"\t<td><a href=\"/user/list/" + FORM_ORDERBY_NOME + "\"><b>Usuario</b></a></td>\n" +
-        		"\t<td><a href=\"/user/list/" + FORM_ORDERBY_DATA_NASCIMENTO + "\"><b>Idade</b></a></td>\n" +
+        		"\t<td><a href=\"/usuario/list/" + FORM_ORDERBY_Id + "\"><b>Id</b></a></td>\n" +
+        		"\t<td><a href=\"/usuario/list/" + FORM_ORDERBY_NOME + "\"><b>Usuario</b></a></td>\n" +
+        		"\t<td><a href=\"/usuario/list/" + FORM_ORDERBY_DATA_NASCIMENTO + "\"><b>Idade</b></a></td>\n" +
         		"\t<td width=\"100\" align=\"center\"><b>Detalhar</b></td>\n" +
         		"\t<td width=\"100\" align=\"center\"><b>Atualizar</b></td>\n" +
         		"\t<td width=\"100\" align=\"center\"><b>Excluir</b></td>\n" +
@@ -157,8 +160,8 @@ public class UserService {
 					"\t<td style=\"color: " + color + ";\">" + p.getID() + "</td>\n" +
 					//"\t<td style=\"color: " + color + ";\">" + p.getUsuario() + "</td>\n" +
 					"\t<td style=\"color: " + color + ";\">" + p.getDataCadastro().toString() + "</td>\n" +
-					"\t<td align=\"center\" valign=\"middle\"><a href=\"/user/" + p.getID() + "\"><img src=\"/image/detail.png\" width=\"20\" height=\"20\"/></a></td>\n" +
-					"\t<td align=\"center\" valign=\"middle\"><a href=\"/user/update/" + p.getID() + "\"><img src=\"/image/update.png\" width=\"20\" height=\"20\"/></a></td>\n" +
+					"\t<td align=\"center\" valign=\"middle\"><a href=\"/usuario/" + p.getID() + "\"><img src=\"/image/detail.png\" width=\"20\" height=\"20\"/></a></td>\n" +
+					"\t<td align=\"center\" valign=\"middle\"><a href=\"/usuario/update/" + p.getID() + "\"><img src=\"/image/update.png\" width=\"20\" height=\"20\"/></a></td>\n" +
 					"\t<td align=\"center\" valign=\"middle\"><a href=\"javascript:confirmarDeleteUser('" + p.getID() + "', '" + "', '" + p.getNome() + "');\"><img src=\"/image/delete.png\" width=\"20\" height=\"20\"/></a></td>\n" +
 					"</tr>\n";
 		}
@@ -173,16 +176,19 @@ public class UserService {
         String nome = request.queryParams("nome");
         LocalDateTime dataCadastro = LocalDateTime.now();
         
-        User usuario = new User(email, senha, nome, dataCadastro);
-        
+        User usuario = new User(-1, email, DAO.toMD5(senha), nome, dataCadastro);
+		String resp = "";
+
         if (userDAO.insert(usuario)) {
+            resp = "User (" + usuario + ") inserido!";
             response.status(201); // 201 Created
             response.redirect("/forms.html");
-            return null;
         } else {
+			resp = "User (" + usuario + ") não inserido!";
             response.status(400); // 400 Bad Request
-            return "Erro ao cadastrar usuário!";
         }
+		makeForm();
+		return form.replaceFirst("<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"\">", "<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\""+ resp +"\">");
     }
 
     // Método para login
@@ -230,22 +236,27 @@ public class UserService {
     }
 
     // Método para atualizar um usuário
-    public Object update(Request request, Response response) {
+	public Object update(Request request, Response response) throws Exception{
         int id = Integer.parseInt(request.params(":id"));
-        String email = request.queryParams("email");
-        String senha = request.queryParams("senha");
-        String nome = request.queryParams("nome");
+		User user = userDAO.get(id);
+        String resp = "";       
 
-        User usuario = new User(id, email, senha, nome, LocalDateTime.now());
-
-        if (userDAO.update(usuario)) {
-            response.status(200); // 200 OK
-            return "Usuário atualizado com sucesso!";
+        if (user != null) {
+        	user.setSenha(DAO.toMD5(request.queryParams("senha")));
+        	user.setEmail(request.queryParams("email"));
+        	user.setNome(request.queryParams("nome"));
+        	user.setDataCadastro(LocalDateTime.parse(request.queryParams("dataNascimento"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+			//user.setGerenciador(Boolean.parseBoolean(request.queryParams("gerenciador")));
+        	userDAO.update(user);
+        	response.status(200); // success
+            resp = "User (Id " + user.getID() + ") atualizado!";
         } else {
-            response.status(400); // 400 Bad Request
-            return "Erro ao atualizar usuário!";
+            response.status(404); // 404 Not found
+            resp = "User (Id \" + user.getId() + \") não encontrado!";
         }
-    }
+		makeForm();
+		return form.replaceFirst("<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"\">", "<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\""+ resp +"\">");
+	}
 
     // Método para deletar um usuário
     public Object delete(Request request, Response response) {

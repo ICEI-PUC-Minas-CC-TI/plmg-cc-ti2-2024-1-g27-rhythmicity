@@ -18,14 +18,14 @@ public class Aplicacao {
             response.redirect("forms.html");
             return null;
         });
-        
+                
         // Rotas de login e cadastro
         post("/usuario/signup", (request, response) -> userService.signup(request, response));
         post("/usuario/login", (request, response) -> userService.login(request, response));
 
         // Rotas CRUD
         get("/usuario/:id", (request, response) -> userService.get(request, response));
-        get("/usuarios", (request, response) -> userService.getAll(request, response));
+        get("/usuario/list/:orderby", (request, response) -> userService.getAll(request, response));
         put("/usuario/:id", (request, response) -> userService.update(request, response));
         delete("/usuario/:id", (request, response) -> userService.delete(request, response));
 
