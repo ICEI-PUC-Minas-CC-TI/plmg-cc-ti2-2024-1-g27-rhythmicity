@@ -43,51 +43,6 @@ error.innerHTML = "";
 confirmPassword.addEventListener("keyup", checkPassword);
 
 
-
-// Armazena dados de cadastro no Local Storage
-const signUpForm = document.querySelector('.signup form');
-const signUpButton = signUpForm.querySelector('button');
-signUpButton.addEventListener('click', (e) => {
-  e.preventDefault();
-  const firstName = signUpForm.querySelector('#first-name').value;
-const lastName = signUpForm.querySelector('#last-name').value;
-const email = signUpForm.querySelector('#signup-email').value;
-const password = signUpForm.querySelector('#signup-password').value;
-
-localStorage.setItem('firstName', firstName);
-localStorage.setItem('lastName', lastName);
-localStorage.setItem('email', email);
-localStorage.setItem('password', password);
-
-const fullName = `${firstName} ${lastName}`;
-localStorage.setItem('userLogado', JSON.stringify({ usuario: fullName, sobre: 'Escreva algo sobre você' }));
-
-alert('Cadastro realizado com sucesso!');
-signUpForm.reset();
-
-});
-
-
-
-// Verifica dados de login no Local Storage
-const loginForm = document.querySelector('.login form');
-const loginButton = loginForm.querySelector('button');
-loginButton.addEventListener('click', (e) => {
-  e.preventDefault();
-  const email = loginForm.querySelector('input[type="email"]').value;
-  const password = loginForm.querySelector('input[type="password"]').value;
-
-  if (localStorage.getItem('email') === email && localStorage.getItem('password') === password) {
-    alert('Login realizado com sucesso!');
-    // (Área para redirecionamento pra Página Inicial após o Login ter sido efetuado, por enquanto não existente)
-  } else {
-    alert('E-mail ou senha inválidos!');
-  }
-  loginForm.reset();
-});
-
-
-
 //Redirecionamento ao clicar no logotipo
 const logotype = document.querySelector('#logotype');
 

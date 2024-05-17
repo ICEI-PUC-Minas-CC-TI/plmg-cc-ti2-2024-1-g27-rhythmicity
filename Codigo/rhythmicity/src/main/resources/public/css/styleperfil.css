@@ -23,6 +23,10 @@
     margin: auto; 
 }
 
+#perfilIcon{
+	width: 200%;
+}
+
 /*Configurações e alinhamentos da navbar*/
 .group
 {

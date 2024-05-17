@@ -17,18 +17,21 @@
 </header>
 
 <section class="container forms">
-
+	<div id="popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #f9f9f9; border: 1px solid #ccc; padding: 20px; z-index: 9999;">
+	    <span id="mensagem"></span>
+	    <button onclick="fecharPopup()">Fechar</button>
+	</div>
     <!-- TELA DE LOGIN -->
     <div class="form login">
         <div class="form-content">
             <header class="header-form">Login</header>
-            <form action="/login" method="post" class="formlogin">
+            <form action="/usuario/login" method="post" class="formlogin">
                 <div class="field input-field">
-                    <input type="email" placeholder="E-mail" class="input">
+                    <input type="email" name="email" placeholder="E-mail" class="input" required>
                 </div>
 
                 <div class="field input-field">
-                    <input type="password" placeholder="Senha" class="password" id="login-password" required>
+                    <input type="password" name="senha" placeholder="Senha" class="password" id="login-password" required>
                     <box-icon name='hide' class="olho-senha" data-password-toggle="login-password"></box-icon>
                 </div>
 
@@ -68,18 +71,18 @@
     <div class="form signup">
         <div class="form-content">
             <header class="header-form">Cadastrar-se</header>
-            <form action="/signup" method="post" class="formsignup">
+            <form action="/usuario/signup" method="post" class="formsignup">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-                    <input type="text" placeholder="Nome" id="first-name">
-                    <input type="text" placeholder="Sobrenome" id="last-name">
+                    <input type="text" name="nome" placeholder="Nome" id="first-name" required>
+                    <input type="text" name="sobrenome" placeholder="Sobrenome" id="last-name" required>
                 </div>
 
                 <div class="field input-field">
-                    <input type="email" placeholder="E-mail" class="input" id="signup-email">
+                    <input type="email" name="email" placeholder="E-mail" class="input" id="signup-email" required>
                 </div>
 
                 <div class="field input-field">
-                    <input type="password" placeholder="Senha" class="password" id="signup-password" required>
+                    <input type="password" name="senha" placeholder="Senha" class="password" id="signup-password" required>
                     <box-icon name='hide' class="olho-senha" data-password-toggle="signup-password"></box-icon>
                 </div>
 
@@ -144,6 +147,37 @@
         menuToggle.onclick = function(){
             header.classList.toggle('open');
 
+        }
+        
+        function exibirMensagem(mensagem, sucesso) {
+            const popup = document.getElementById("popup");
+            const mensagemElemento = document.getElementById("mensagem");
+            mensagemElemento.textContent = mensagem;
+            popup.style.display = "block";
+            if (sucesso) {
+                mensagemElemento.style.color = "green";
+            } else {
+                mensagemElemento.style.color = "red";
+            }
+        }
+        
+        function cadastrarUsuario() {
+            const email = document.getElementById("email").value;
+            const senha = document.getElementById("senha").value;
+
+            fetch('/usuario/signup?email=' + email + '&senha=' + senha, {
+                method: 'POST'
+            }).then(response => {
+                if (response.ok) {
+                    exibirMensagem("Usuário cadastrado com sucesso!", true);
+                } else {
+                    exibirMensagem("Erro ao cadastrar usuário!", false);
+                }
+            });
+        }
+        
+        function fecharPopup() {
+            document.getElementById("popup").style.display = "none";
         }
     </script>
 
