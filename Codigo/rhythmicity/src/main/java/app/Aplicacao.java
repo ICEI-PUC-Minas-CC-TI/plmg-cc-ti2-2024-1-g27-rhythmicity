@@ -26,8 +26,8 @@ public class Aplicacao {
         // Rotas CRUD
         get("/usuario/:id", (request, response) -> userService.get(request, response));
         get("/usuario/list/:orderby", (request, response) -> userService.getAll(request, response));
-        put("/usuario/:id", (request, response) -> userService.update(request, response));
-        delete("/usuario/:id", (request, response) -> userService.delete(request, response));
+        put("/usuario/update/:id", (request, response) -> userService.update(request, response));
+        delete("/usuario/delete/:id", (request, response) -> userService.delete(request, response));
 
         // video
         post("/video/insert", (request, response) -> videoService.insert(request, response));
