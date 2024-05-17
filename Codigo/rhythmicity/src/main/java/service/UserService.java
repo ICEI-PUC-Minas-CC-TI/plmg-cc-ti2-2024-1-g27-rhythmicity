@@ -40,7 +40,7 @@ public class UserService {
 
 	
 	public void makeForm(int tipo, User usuario, int orderBy) {
-		String nomeArquivo = "/form.html";
+		String nomeArquivo = "form.html";
 		form = "";
 		try (InputStream inputStream = getClass().getResourceAsStream(nomeArquivo)){
 			if (inputStream == null) {
