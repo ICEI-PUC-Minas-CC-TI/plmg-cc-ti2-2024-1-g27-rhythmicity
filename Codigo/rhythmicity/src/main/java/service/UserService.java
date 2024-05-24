@@ -102,8 +102,8 @@ public class UserService {
 			umUser += "table { width: 100%; border-collapse: collapse; }";
 			umUser += "td { padding: 10px; }";
 			umUser += "input[type='text'], input[type='password'], input[type='email'] { width: 100%; padding: 8px; margin: 5px 0; box-sizing: border-box; }";
-			umUser += "input[type='submit'] { width: 100%; background-color: #4CAF50; color: white; padding: 10px; margin: 5px 0; border: none; border-radius: 4px; cursor: pointer; }";
-			umUser += "input[type='submit']:hover { background-color: #45a049; }";
+			umUser += "input[type='submit'] { width: 100%; background-color: #490457; color: white; padding: 10px; margin: 5px 0; border: none; border-radius: 4px; cursor: pointer; }";
+			umUser += "input[type='submit']:hover { background-color: #69067d; }";
 			umUser += "</style>";
 			umUser += "</head>";
 			umUser += "<body>";
