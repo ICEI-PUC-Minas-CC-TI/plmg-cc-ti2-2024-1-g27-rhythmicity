@@ -74,11 +74,18 @@ public class User {
     }
 
     public void setDataCadastro(LocalDateTime data_cadastro) {
-        // Pega a Data Atual
-        LocalDateTime agora = LocalDateTime.now();
-        // Garante que a data de fabricação não pode ser futura
-        if (agora.compareTo(data_cadastro) >= 0)
-            this.data_cadastro = data_cadastro;
+        // Verifica se a data_cadastro não é nula antes de fazer a comparação
+        if (data_cadastro != null) {
+            // Pega a Data Atual
+            LocalDateTime agora = LocalDateTime.now();
+            // Garante que a data de fabricação não pode ser futura
+            if (agora.compareTo(data_cadastro) >= 0) {
+                this.data_cadastro = data_cadastro;
+            }
+        } else {
+            // Trate o caso em que data_cadastro é nulo, se necessário
+            this.data_cadastro = LocalDateTime.now(); // ou outra lógica apropriada
+        }
     }
 
 

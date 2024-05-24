@@ -25,7 +25,7 @@ public class UserService {
 	private final int FORM_UPDATE = 3;
 	private final int FORM_ORDERBY_Id = 1;
 	private final int FORM_ORDERBY_NOME = 2;
-	private final int FORM_ORDERBY_DATA_NASCIMENTO= 3;
+	private final int FORM_ORDERBY_DATA_CADASTRO= 3;
 
 	public UserService() {
 		makeForm();
@@ -72,64 +72,95 @@ public class UserService {
 			LocalDateTime data_cadastro;
 			//boolean gerenciador;
 			if (tipo == FORM_INSERT){
-				action += "insert";
-				usuario = "Inserir User";
-				senha = "Inserir sua senha";
-				nome = "Inserir seu nome";
-				email = "Inserir e-mail";
-				data_cadastro = LocalDateTime.now();
-				//gerenciador = false;
-				buttonLabel = "Inserir";
+			    action += "insert";
+			    usuario = "Gerenciar Usuarios";
+			    senha = "Inserir sua senha";
+			    nome = "Inserir seu nome";
+			    email = "Inserir e-mail";
+			    data_cadastro = LocalDateTime.now();
+			    buttonLabel = "Inserir";
 			} else {
-				action += "update/" + user.getID();
-				usuario = "Atualizar User (Id " + user.getID() + ")";
-				senha = user.getSenha();
-				nome = user.getNome();
-				email = user.getEmail();
-				data_cadastro = user.getDataCadastro();
-				//gerenciador = user.getGerenciador();
-				buttonLabel = "Atualizar";
+			    action += "update/" + user.getID();
+			    usuario = "Atualizar User (Id " + user.getID() + ")";
+			    senha = user.getSenha();
+			    nome = user.getNome();
+			    email = user.getEmail();
+			    data_cadastro = user.getDataCadastro();
+			    buttonLabel = "Atualizar";
 			}
-			umUser += "\t<form class=\"form--register\" action=\"" + action + "\" method=\"post\" id=\"form-add\">";
-			umUser += "\t<table width=\"80%\" bgcolor=\"#f3f3f3\" align=\"center\">";
-			umUser += "\t\t<tr>";
-			umUser += "\t\t\t<td colspan=\"3\" align=\"left\"><font size=\"+2\"><b>&nbsp;&nbsp;&nbsp;" + usuario + "</b></font></td>";
-			umUser += "\t\t</tr>";
-			umUser += "\t\t<tr>";
-			umUser += "\t\t\t<td colspan=\"3\" align=\"left\">&nbsp;</td>";
-			umUser += "\t\t</tr>";
-			umUser += "\t\t<tr>";
-			//umUser += "\t\t\t<td>&nbsp;Usuário: <input class=\"input--register\" type=\"text\" name=\"usuario\" placeholder =\""+ usuario +"\"></td>";
-			umUser += "\t\t\t<td>Senha: <input class=\"input--register\" type=\"password\" name=\"senha\" placeholder=\""+ senha +"\"></td>";
-			umUser += "\t\t\t<td>E-mail: <input class=\"input--register\" type=\"email\" name=\"email\" placeholder=\""+ email +"\"></td>";
-			umUser += "\t\t</tr>";
-			umUser += "\t\t<tr>";
-			umUser += "\t\t\t<td>&nbsp;Nome: <input class=\"input--register\" type=\"text\" name=\"nome\" placeholder=\""+ nome + "\"></td>";
-			//umUser += "\t\t\t<td>Gerenciador: <input class=\"input--register\" type=\"text\" name=\"gerenciador\" placeholder=\""+ gerenciador + "\"></td>";
-			umUser += "\t\t\t<td align=\"center\"><input type=\"submit\" value=\""+ buttonLabel +"\" class=\"input--main__style input--button\"></td>";
-			umUser += "\t\t</tr>";
-			umUser += "\t</table>";
-			umUser += "\t</form>";		
-		} else if (tipo == FORM_DETAIL){
-			umUser += "\t<table width=\"80%\" bgcolor=\"#f3f3f3\" align=\"center\">";
-			umUser += "\t\t<tr>";
-			umUser += "\t\t\t<td colspan=\"3\" align=\"left\"><font size=\"+2\"><b>&nbsp;&nbsp;&nbsp;Detalhar User (Id " + user.getID() + ")</b></font></td>";
-			umUser += "\t\t</tr>";
-			umUser += "\t\t<tr>";
-			umUser += "\t\t\t<td colspan=\"3\" align=\"left\">&nbsp;</td>";
-			umUser += "\t\t</tr>";
-			umUser += "\t\t<tr>";
-			//umUser += "\t\t\t<td>&nbsp;Usuário: "+ user.getUsuario() +"</td>";
-			umUser += "\t\t\t<td>Senha: "+ user.getSenha() +"</td>";
-			umUser += "\t\t\t<td>e-mail: "+ user.getEmail() +"</td>";
-			umUser += "\t\t</tr>";
-			umUser += "\t\t<tr>";
-			umUser += "\t\t\t<td>&nbsp;Nome: "+ user.getNome() + "</td>";
-			umUser += "\t\t\t<td>Data de Cadastro: "+ user.getDataCadastro().toString() + "</td>";
-			//umUser += "\t\t\t<td>Gerenciador: "+ user.getGerenciador() + "</td>";
-			umUser += "\t\t\t<td>&nbsp;</td>";
-			umUser += "\t\t</tr>";
-			umUser += "\t</table>";		
+
+			umUser += "<!DOCTYPE html>";
+			umUser += "<html lang=\"pt-br\">";
+			umUser += "<head>";
+			umUser += "<meta charset=\"UTF-8\">";
+			umUser += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">";
+			umUser += "<title>Formulário de Usuário</title>";
+			umUser += "<style>";
+			umUser += "body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f9; }";
+			umUser += ".container { margin-top: 20px; max-width: 800px; margin-left: auto; margin-right: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }";
+			umUser += "h1 { text-align: center; color: #333; }";
+			umUser += "table { width: 100%; border-collapse: collapse; }";
+			umUser += "td { padding: 10px; }";
+			umUser += "input[type='text'], input[type='password'], input[type='email'] { width: 100%; padding: 8px; margin: 5px 0; box-sizing: border-box; }";
+			umUser += "input[type='submit'] { width: 100%; background-color: #4CAF50; color: white; padding: 10px; margin: 5px 0; border: none; border-radius: 4px; cursor: pointer; }";
+			umUser += "input[type='submit']:hover { background-color: #45a049; }";
+			umUser += "</style>";
+			umUser += "</head>";
+			umUser += "<body>";
+			umUser += "<div class=\"container\">";
+			umUser += "<h1>" + usuario + "</h1>";
+			umUser += "<form class=\"form--register\" action=\"" + action + "\" method=\"post\" id=\"form-add\">";
+			umUser += "<table>";
+			umUser += "<tr>";
+			umUser += "<td>Senha: <input class=\"input--register\" type=\"password\" name=\"senha\" placeholder=\"" + senha + "\"></td>";
+			umUser += "<td>E-mail: <input class=\"input--register\" type=\"email\" name=\"email\" placeholder=\"" + email + "\"></td>";
+			umUser += "</tr>";
+			umUser += "<tr>";
+			umUser += "<td>Nome: <input class=\"input--register\" type=\"text\" name=\"nome\" placeholder=\"" + nome + "\"></td>";
+			umUser += "<td align=\"center\"><input type=\"submit\" value=\"" + buttonLabel + "\" class=\"input--main__style input--button\"></td>";
+			umUser += "</tr>";
+			umUser += "</table>";
+			umUser += "</form>";
+			umUser += "</div>";
+			umUser += "</body>";
+			umUser += "</html>";
+
+			} else if (tipo == FORM_DETAIL) {
+			    umUser += "<!DOCTYPE html>";
+			    umUser += "<html lang=\"pt-br\">";
+			    umUser += "<head>";
+			    umUser += "<meta charset=\"UTF-8\">";
+			umUser += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">";
+			    umUser += "<title>Detalhes do Usuário</title>";
+			    umUser += "<style>";
+			    umUser += "body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f9; }";
+			    umUser += ".container { margin-top: 20px; max-width: 800px; margin-left: auto; margin-right: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }";
+			    umUser += "h1 { text-align: center; color: #333; }";
+			    umUser += "table { width: 100%; border-collapse: collapse; }";
+			    umUser += "td { padding: 10px; }";
+			    umUser += "</style>";
+			    umUser += "</head>";
+			    umUser += "<body>";
+			    umUser += "<div class=\"container\">";
+			    umUser += "<h1>Detalhes do Usuário</h1>";
+			    umUser += "<table>";
+			    umUser += "<tr>";
+			    umUser += "<td colspan=\"3\" align=\"left\"><font size=\"+2\"><b>&nbsp;&nbsp;&nbsp;Detalhar User (Id " + user.getID() + ")</b></font></td>";
+			    umUser += "</tr>";
+			    umUser += "<tr>";
+			    umUser += "<td>Senha: " + user.getSenha() + "</td>";
+			    umUser += "<td>e-mail: " + user.getEmail() + "</td>";
+			    umUser += "</tr>";
+			    umUser += "<tr>";
+			    umUser += "<td>&nbsp;Nome: " + user.getNome() + "</td>";
+			    umUser += "<td>Data de Cadastro: " + user.getDataCadastro().toString() + "</td>";
+			    umUser += "<td>&nbsp;</td>";
+			    umUser += "</tr>";
+			    umUser += "</table>";
+			    umUser += "</div>";
+			    umUser += "</body>";
+			    umUser += "</html>";
+			
 		} else {
 			System.out.println("ERRO! Tipo não identificado " + tipo);
 		}
@@ -141,7 +172,7 @@ public class UserService {
     			"\n<tr>\n" + 
         		"\t<td><a href=\"/usuario/list/" + FORM_ORDERBY_Id + "\"><b>Id</b></a></td>\n" +
         		"\t<td><a href=\"/usuario/list/" + FORM_ORDERBY_NOME + "\"><b>Usuario</b></a></td>\n" +
-        		"\t<td><a href=\"/usuario/list/" + FORM_ORDERBY_DATA_NASCIMENTO + "\"><b>Data de Cadastro</b></a></td>\n" +
+        		"\t<td><a href=\"/usuario/list/" + FORM_ORDERBY_DATA_CADASTRO + "\"><b>Data de Cadastro</b></a></td>\n" +
         		"\t<td width=\"100\" align=\"center\"><b>Detalhar</b></td>\n" +
         		"\t<td width=\"100\" align=\"center\"><b>Atualizar</b></td>\n" +
         		"\t<td width=\"100\" align=\"center\"><b>Excluir</b></td>\n" +
@@ -150,7 +181,7 @@ public class UserService {
 		List<User> users;
 		if (orderBy == FORM_ORDERBY_Id) {                 	users = userDAO.getOrderByID();
 		} else if (orderBy == FORM_ORDERBY_NOME) {		users = userDAO.getOrderByNome();
-		} else if (orderBy == FORM_ORDERBY_DATA_NASCIMENTO) {			users = userDAO.getOrderByDataCadastro();
+		} else if (orderBy == FORM_ORDERBY_DATA_CADASTRO) {			users = userDAO.getOrderByDataCadastro();
 		} else {											users = userDAO.get();
 		}
 
@@ -166,50 +197,77 @@ public class UserService {
 					"\t<td style=\"color: " + color + ";\">" + p.getDataCadastro().toString() + "</td>\n" +
 					"\t<td align=\"center\" valign=\"middle\"><a href=\"/usuario/" + p.getID() + "\"><img src=\"/image/detail.png\" width=\"20\" height=\"20\"/></a></td>\n" +
 					"\t<td align=\"center\" valign=\"middle\"><a href=\"/usuario/update/" + p.getID() + "\"><img src=\"/image/update.png\" width=\"20\" height=\"20\"/></a></td>\n" +
-					"\t<td align=\"center\" valign=\"middle\"><a href=\"javascript:confirmarDeleteUser('" + p.getID() + "', '" + "', '" + p.getNome() + "');\"><img src=\"/image/delete.png\" width=\"20\" height=\"20\"/></a></td>\n" +
+					"\t<td align=\"center\" valign=\"middle\"><a href=\"javascript:confirmarDeleteUser('" + p.getID() + "', '" + p.getNome() + "', '" + p.getEmail() + "');\"><img src=\"/image/delete.png\" width=\"20\" height=\"20\"/></a></td>\n" +
 					"</tr>\n";
 		}
 		list += "</table>";		
 		form = form.replaceFirst("<LISTAR-USER>", list);				
 	}
 	
-    // Método para cadastro
-    public Object signup(Request request, Response response) throws Exception {
-        String email = request.queryParams("email");
-        String senha = request.queryParams("senha");
-        String nome = request.queryParams("nome");
-        LocalDateTime dataCadastro = LocalDateTime.now();
-        
-        User usuario = new User(-1, email, DAO.toMD5(senha), nome, dataCadastro);
+	public Object insert(Request request, Response response) throws Exception{
+		String nome = request.queryParams("nome");
+		String senha = request.queryParams("senha");
+		String email = request.queryParams("email");
+		LocalDateTime dataCadastro = LocalDateTime.now();
+		
 		String resp = "";
-
-        if (userDAO.insert(usuario)) {
-            resp = "User (" + usuario + ") inserido!";
+		
+		User user = new User(-1, email, DAO.toMD5(senha), nome, dataCadastro);
+		
+		if(userDAO.insert(user) == true) {
+            resp = "User (" + nome + ") inserido!";
             response.status(201); // 201 Created
-            response.redirect("/forms.html");
-        } else {
-			resp = "User (" + usuario + ") não inserido!";
-            response.status(400); // 400 Bad Request
-        }
+		} else {
+			resp = "User (" + nome + ") não inserido!";
+			response.status(404); // 404 Not found
+		}
+			
 		makeForm();
 		return form.replaceFirst("<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"\">", "<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\""+ resp +"\">");
-    }
+	}
+
+	
+    // Método para cadastro
+	public Object insertUser(Request request, Response response)throws Exception {
+		String nome = request.queryParams("nome");
+		String usuario = request.queryParams("usuario");
+		String senha = request.queryParams("senha");
+		String email = request.queryParams("email");
+		LocalDateTime dataCadastro = LocalDateTime.now();
+				
+		String resp = "";
+		
+		User user = new User(-1, email, DAO.toMD5(senha), nome, dataCadastro);
+		
+		if(userDAO.insert(user) == true) {
+            resp = "Conta criada com sucesso!";
+            response.status(201); // 201 Created
+		} else {
+			resp = "Falha ao criar conta!";
+			response.status(400); // 404 Not found
+		}
+		
+		response.redirect("/forms.html");
+			
+		return form.replaceFirst("<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"\">", "<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\""+ resp +"\">");
+	}
 
     // Método para login
     public Object login(Request request, Response response) throws Exception {
         String email = request.queryParams("email");
         String senha = request.queryParams("senha");
-        
-        User usuario = userDAO.getByEmailAndPassword(email, senha);
+    	String resp = "";
+        User usuario = userDAO.getByEmailAndPassword(email, DAO.toMD5(senha));
         
         if (usuario != null) {
             response.status(200); // 200 OK
             response.redirect("/indexperfil.html?nome=" + usuario.getNome());
             return null;
         } else {
-            response.status(401); // 401 Unauthorized
-            return "Email ou senha inválidos!";
+			response.redirect("/login.html");
+			resp = "Usuario e/ou senha inválidos!";	
         }
+        return resp;
     }
 
     // Método para buscar um usuário pelo ID
@@ -219,12 +277,57 @@ public class UserService {
 
         if (usuario != null) {
             response.status(200);
-            return usuario;
+            return generateHtml(usuario);
         } else {
             response.status(404); // 404 Not Found
             return "Usuário não encontrado!";
         }
     }
+    
+    private String generateHtml(User usuario) {
+        return "<!DOCTYPE html>" +
+               "<html lang=\"pt-br\">" +
+               "<head>" +
+               "<meta charset=\"UTF-8\">" +
+               "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" +
+               "<title>Detalhes do Usuário</title>" +
+               "<style>" +
+               "body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f9; }" +
+               ".container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }" +
+               "h1 { text-align: center; color: #333; }" +
+               "p { line-height: 1.6; color: #666; }" +
+               ".user-info { margin-bottom: 15px; }" +
+               ".user-info span { font-weight: bold; color: #333; }" +
+               "</style>" +
+               "</head>" +
+               "<body>" +
+               "<div class=\"container\">" +
+               "<h1>Detalhes do Usuário</h1>" +
+               "<div class=\"user-info\"><span>ID:</span> " + usuario.getID() + "</div>" +
+               "<div class=\"user-info\"><span>Nome:</span> " + usuario.getNome() + "</div>" +
+               "<div class=\"user-info\"><span>Email:</span> " + usuario.getEmail() + "</div>" +
+               "<div class=\"user-info\"><span>Data de Cadastro:</span> " + usuario.getDataCadastro().toString() + "</div>" +
+               "</div>" +
+               "</body>" +
+               "</html>";
+    }
+    
+	public Object getToUpdate(Request request, Response response) {
+		int id = Integer.parseInt(request.params(":id"));		
+		User user = (User) userDAO.get(id);
+		
+		if (user != null) {
+			response.status(200); // success
+			makeForm(FORM_UPDATE, user, FORM_ORDERBY_NOME);
+        } else {
+            response.status(404); // 404 Not found
+            String resp = "User " + id + " não encontrado.";
+    		makeForm();
+    		form.replaceFirst("<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"\">", "<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\""+ resp +"\">");     
+        }
+
+		return form;
+	}
 
     // Método para buscar todos os usuários
     public Object getAll(Request request, Response response) {
@@ -236,31 +339,41 @@ public class UserService {
     }
 
     // Método para atualizar um usuário
-	public Object update(Request request, Response response) throws Exception{
+    public Object update(Request request, Response response) throws Exception {
         int id = Integer.parseInt(request.params(":id"));
-		User user = userDAO.get(id);
-        String resp = "";       
+        User user = userDAO.get(id);
+        String resp = "";
 
         if (user != null) {
-        	user.setSenha(DAO.toMD5(request.queryParams("senha")));
-        	user.setEmail(request.queryParams("email"));
-        	user.setNome(request.queryParams("nome"));
-        	user.setDataCadastro(LocalDateTime.parse(request.queryParams("dataNascimento"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-			//user.setGerenciador(Boolean.parseBoolean(request.queryParams("gerenciador")));
-        	userDAO.update(user);
-        	response.status(200); // success
-            resp = "User (Id " + user.getID() + ") atualizado!";
+            user.setSenha(DAO.toMD5(request.queryParams("senha")));
+            user.setEmail(request.queryParams("email"));
+            user.setNome(request.queryParams("nome"));
+            
+            // Aqui está a alteração para lidar com o possível valor nulo do parâmetro "data_cadastro"
+            String dataCadastroParam = request.queryParams("data_cadastro");
+            if (dataCadastroParam != null) {
+                LocalDateTime dataCadastro = LocalDateTime.parse(dataCadastroParam);
+                user.setDataCadastro(dataCadastro);
+            } else {
+                user.setDataCadastro(null); // Ou outra lógica apropriada para quando data_cadastro for nulo
+            }
+            
+            userDAO.update(user);
+            response.status(200); // success
+            resp = "Usuário (Id " + user.getID() + ") atualizado!";
         } else {
             response.status(404); // 404 Not found
-            resp = "User (Id \" + user.getId() + \") não encontrado!";
+            resp = "Usuário (Id " + id + ") não encontrado!";
         }
-		makeForm();
-		return form.replaceFirst("<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"\">", "<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\""+ resp +"\">");
-	}
+        makeForm();
+        return form.replaceFirst("<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"\">", "<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"" + resp + "\">");
+    }
+
 
     // Método para deletar um usuário
     public Object delete(Request request, Response response) {
     	int id = Integer.parseInt(request.params(":id"));
+    	//System.out.println("id: " + id);
         User user = userDAO.get(id);
         String resp = "";
 
