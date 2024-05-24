@@ -292,15 +292,58 @@ public class UserService {
                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" +
                "<title>Detalhes do Usuário</title>" +
                "<style>" +
-               "body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f9; }" +
-               ".container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }" +
+               "body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; }" +
+               ".container { max-width: 600px; margin: 180px auto 150px auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }" +
                "h1 { text-align: center; color: #333; }" +
                "p { line-height: 1.6; color: #666; }" +
                ".user-info { margin-bottom: 15px; }" +
                ".user-info span { font-weight: bold; color: #333; }" +
+
+               /* Estilos do header */
+               ".header-navbar { position: fixed; top: 0; left: 0; width: 95%; height: 80px; background: #490457; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 15px 15px rgba(0,0,0,0.05); z-index: 1000; }" +
+               ".logo img { max-width: 200px; display: block; margin: auto; }" +
+               ".group { display: flex; align-items: center; }" +
+               "header ul { position: relative; display: flex; gap: 30px; }" +
+               "header ul li { list-style: none; }" +
+               "header ul li a { position: relative; text-decoration: none; font: 1em; color: #E8E8E8; text-transform: uppercase; letter-spacing: 0.2em; }" +
+               "header ul li a::before { content: ''; position: absolute; bottom: -2px; width: 100%; height: 2px; background: #E8E8E8; transform: scaleX(0); transition: transform 0.5s ease-in-out; transform-origin: right; }" +
+               "header ul li a:hover::before { transform: scaleX(1); transform-origin: left; }" +
+               ".search { position: relative; display: flex; justify-content: center; align-items: center; font-size: 1.5em; z-index: 10; cursor: pointer; color: #E8E8E8; }" +
+               ".searchBox.active { right: 0; }" +
+               ".searchBox { position: absolute; right: -100%; width: 100%; height: 100%; display: flex; background: #490457; align-items: center; padding: 0 30px; transition: 0.5 ease-in-out; }" +
+               ".searchBox input { width: 100%; border: none; outline: none; height: 50px; color: #E8E8E8; font-size: 1.25em; background: #490457; border-bottom: 1px solid #E8E8E8; }" +
+               ".searchBtn { position: relative; left: 30px; top: 2.5px; transition: 0.5s ease-in-out; }" +
+               ".searchBtn.active { left: 0; }" +
+               ".closeBtn { opacity: 0; visibility: hidden; transition: 0; scale: 0; }" +
+               ".closeBtn.active { opacity: 1; visibility: visible; transition: 0.5s; scale: 1; }" +
+               ".searchBtn.hidden { display: none; }" +
+               ".searchBox.active .closeBtn { right: 30px; }" +
+               ".menuToggle { position: relative; display: none; color: #E8E8E8; }" +
+               "@media (max-width: 800px) { " +
+               ".searchBtn { left: 0; }" +
+               ".menuToggle { position: absolute; display: block; font-size: 2em; cursor: pointer; transform: translateX(30px); z-index: 10; }" +
+               "header .navigation { position: absolute; opacity: 0; visibility: hidden; left: 100%; }" +
+               "header.open .navigation { top: 80px; opacity: 1; visibility: visible; left: 0; display: flex; flex-direction: column; background: #490457; width: 100%; height: calc(100vh - 80px); padding: 40px; border-top: 1px solid rgba(0,0,0,0.05); }" +
+               "header.open .navigation li a { font-size: 1.25em; }" +
+               "}" +
                "</style>" +
                "</head>" +
                "<body>" +
+
+               // Cabeçalho
+               "<header class=\"header-navbar\">" +
+               "<a href=\"/index.html\" class=\"logo\" id=\"logotype\">" +
+               "<img src=\"/images/rhythmicity logotipo branco.png\" alt=\"Logo1\">" +
+               "</a>" +
+               "<div class=\"group\">" +
+               "<ul class=\"navigation\">" +
+               "<li><a href=\"/forms.html\" id=\"log\"></a></li>" +
+               "<li><a href=\"/index.html\" id=\"sign\">Voltar</a></li>" +
+               "<li><a href=\"#\" id=\"perfil\"><ion-icon size=\"large\" name=\"person-circle-outline\"></ion-icon></a></li>" +
+               "</ul>" +
+               "</div>" +
+               "</header>" +
+
                "<div class=\"container\">" +
                "<h1>Detalhes do Usuário</h1>" +
                "<div class=\"user-info\"><span>ID:</span> " + usuario.getID() + "</div>" +
@@ -311,6 +354,8 @@ public class UserService {
                "</body>" +
                "</html>";
     }
+
+
     
 	public Object getToUpdate(Request request, Response response) {
 		int id = Integer.parseInt(request.params(":id"));		
