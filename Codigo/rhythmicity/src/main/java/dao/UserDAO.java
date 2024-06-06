@@ -47,10 +47,8 @@ public class UserDAO extends DAO {
 
     public User getByEmailAndPassword(String email, String senha) throws Exception {
         try {
-        	String sql = "SELECT * FROM usuario WHERE email = ? AND senha = ?";            
-        	PreparedStatement stmt = conexao.prepareStatement(sql);
-        	stmt.setString(1, email);
-        	stmt.setString(2, DAO.toMD5(senha));
+            String sql = "SELECT * FROM usuario WHERE email = '" + email + "' AND senha = '" + DAO.toMD5(senha) + "'";
+            PreparedStatement stmt = conexao.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -80,15 +78,16 @@ public class UserDAO extends DAO {
     
     public User get(int id) {
         User usuario = null;
-        String sql = "SELECT * FROM usuario WHERE id = ?";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
-            stmt.setInt(1, id);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    usuario = new User(rs.getInt("id"), rs.getString("email"), rs.getString("senha"), rs.getString("nome"), rs.getTimestamp("data_cadastro").toLocalDateTime());
-                }
+
+        try {
+            Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            String sql = "SELECT * FROM usuario WHERE id=" + id;
+            ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {
+                usuario = new User(rs.getInt("id"), rs.getString("email"), rs.getString("senha"), rs.getString("nome"), rs.getTimestamp("data_cadastro").toLocalDateTime());
             }
-        } catch (SQLException e) {
+            st.close();
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
         return usuario;
@@ -114,15 +113,15 @@ public class UserDAO extends DAO {
 
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
-        String sql = "SELECT * FROM usuario";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+        try {
+            String sql = "SELECT * FROM usuario";
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
                 users.add(new User(rs.getInt("id"), rs.getString("email"), rs.getString("senha"), rs.getString("nome"), rs.getTimestamp("data_cadastro").toLocalDateTime()));
             }
         } catch (SQLException e) {
-            // Consider using a logging framework like Log4j or SLF4J for better logging
             e.printStackTrace();
         }
         return users;
@@ -189,13 +188,11 @@ public class UserDAO extends DAO {
 
     public boolean delete(int id) {
         boolean status = false;
-        String sql = "DELETE FROM usuario WHERE id = ?";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected > 0) {
-                status = true;
-            }
+        try {
+            Statement st = conexao.createStatement();
+            st.executeUpdate("DELETE FROM usuario WHERE id = " + id);
+            st.close();
+            status = true;
         } catch (SQLException u) {
             throw new RuntimeException(u);
         }
