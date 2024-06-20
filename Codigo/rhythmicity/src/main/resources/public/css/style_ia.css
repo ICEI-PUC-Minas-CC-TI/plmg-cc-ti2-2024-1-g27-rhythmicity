@@ -1,0 +1,348 @@
+/*Fontes*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400&display=swap');
+@font-face {
+    font-family: "Shapiro";
+    src: url("/fonts/Shapiro 95 Super Wide.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Shapiro-Middle";
+    src: url("/fonts/Shapiro 75 Heavy Extd.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Cabin";
+    src: url("/fonts/Cabin-Medium.otf") format("opentype");
+}
+@font-face {
+    font-family: "Cabin-Bold";
+    src: url("/fonts/Cabin-Bold.otf") format("opentype");
+}
+@font-face {
+    font-family: "Cabin-Light";
+    src: url("/fonts/Cabin-Regular.otf") format("opentype");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+
+
+h2 {
+    font-family: "Shapiro", Arial, sans-serif;
+    font-size: xx-large;
+    max-width: 35rem;
+    /*padding-top: 100px;*/
+    color: #fcfcfc;
+    letter-spacing: 1px;
+    overflow: hidden;
+}
+
+.ia {
+	flex-direction: column;
+	background-color: #E8E8E8;
+	margin-top: 80px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 650px;
+    padding-left: 200px;
+    padding-right: 200px;
+    padding: 10px;
+    display: flex;
+    overflow: hidden;
+}
+.upload-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #490457;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+}
+
+.upload-label:hover {
+    background-color: #69067d;
+}
+
+
+input[type="file"] {
+    padding: 10px;
+    padding-left: 20px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 40px 80px;
+    background-color: #490457;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #69067d;
+}
+button:disabled {
+    background-color: #ccc;
+}
+
+button:hover:enabled {
+    background-color: #69067d;
+}
+
+#resultado {
+    margin-top: 20px;
+    font-size: 1.4em;
+    color: #040404;
+    text-align: center; /* Centraliza o texto do resultado */
+}
+
+
+h3 {
+    font-family: "Shapiro", Arial, sans-serif;
+    font-size: xx-large;
+    max-width: 35rem;
+    /*padding-top: 100px;*/
+    color: black;
+    /*background: linear-gradient(6deg, #e7c8c7, #61fefa, #bbabff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;*/
+    letter-spacing: 1px;
+    text-align: center;
+    overflow: hidden;
+}
+
+h4 {
+    font-family: "Shapiro", Arial, sans-serif;
+    font-size: x-large;
+    max-width: 35rem;
+    /*padding-top: 100px;*/
+    /*color: black;*/
+    background: linear-gradient(6deg, #377cca, #f54444, #e9b6b2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    /*text-align: center;*/
+    margin-left: 10px;
+    overflow: hidden;
+}
+
+h5 {
+    font-family: "Shapiro", Arial, sans-serif;
+    font-size: x-large;
+    max-width: 35rem;
+    /*padding-top: 100px;*/
+    /*color: black;*/
+    background: linear-gradient(6deg, #e7c8c7, #61fefa, #a793ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    /*text-align: center;*/
+    margin-left: 10px;
+    overflow: hidden;
+}
+
+h6 {
+    font-family: "Shapiro", Arial, sans-serif;
+    font-size: x-large;
+    max-width: 35rem;
+    /*padding-top: 100px;*/
+    /*color: black;*/
+    background: linear-gradient(6deg, #eb99b8, #6265f8, #bbabff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    /*text-align: center;*/
+    margin-left: 10px;
+    overflow: hidden;
+}
+
+footer {
+    background-color: #29272e;
+    color: #cacaca;
+    font-family: "Cabin-Light", Arial, sans-serif;
+    font-size: small;
+    display: flex;
+    justify-content: space-between;
+}
+
+footer p {
+    margin-top: 5px;
+}
+
+footer p:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+  
+.footer-left,
+.footer-right {
+    text-align: left;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+  
+.footer-right {
+    text-align: right;
+    margin-right: 100px;
+}
+
+.footer-left {
+    margin-left: 100px;
+}
+
+.copyright {
+    font-size: smaller;
+    margin-top: 60px;
+}
+
+.copyright:hover {
+    cursor: auto;
+    text-decoration: none;
+}
+
+/*Cor e configurações da navbar*/
+.header-navbar
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: #490457;
+    /*background: #5b008f;*/
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 15px 15px rgba(0,0,0,0.05);
+}
+
+/*Configurações da Logo da navbar*/
+.logo img {
+    max-width: 200px;
+    display: block; 
+    margin: auto; 
+}
+
+/*Configurações e alinhamentos da navbar*/
+.group
+{
+    display: flex;
+    align-items: center;
+}
+
+/*Distância e configurações dos itens da navbar*/
+header ul
+{
+    position: relative;
+    display: flex;
+    gap: 30px;
+}
+
+header ul li
+{
+    list-style: none;
+}
+
+/*Configurações do TEXTO dos itens da navbar*/
+header ul li a 
+{
+    position: relative;
+    text-decoration: none;
+    font: 1em;
+    color: #E8E8E8;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+/*Linha que fica embaixo dos itens quando passa o mouse em cima */
+header ul li a::before
+{
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background: #E8E8E8;
+    transform: scaleX(0);
+    transition: transform 0.5s ease-in-out;
+    transform-origin: right;
+}
+
+header ul li a:hover::before
+{
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/*Responsividade da navbar*/
+.menuToggle
+{
+    position: relative;
+    display: none;
+    color: #E8E8E8;
+}
+
+/*Configurações pra aparecer o menu sanduiche em uma determinada resolução*/
+@media (max-width: 800px)
+{
+    .searchBtn
+    {
+        left: 0;
+    }
+    .menuToggle
+    {
+        position:absolute;
+        display: block;
+        font-size: 2em;
+        cursor: pointer;
+        transform: translateX(30px);
+        z-index: 10;
+    }
+    header .navigation
+    {
+      position: absolute;
+      opacity: 0;
+      visibility: hidden;
+      left: 100%;
+    }
+    header.open .navigation /* Quando clicar no menu sanduíche, expandir a tela*/
+    {
+        top: 80px;
+        opacity: 1;
+        visibility: visible;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        background: #490457;
+        width: 100%;
+        height: calc(100vh - 80px);
+        padding: 40px;
+        border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    header.open .navigation li a 
+    {
+        font-size: 1.25em;
+    }
+}  

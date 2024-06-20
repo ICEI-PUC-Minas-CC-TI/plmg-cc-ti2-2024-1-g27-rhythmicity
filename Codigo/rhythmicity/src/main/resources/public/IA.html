@@ -1,0 +1,104 @@
+<html>
+<head id="cabeca">
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qual o instrumento?</title>
+    <link rel="icon" href="/images/sitelogomarcapreto.png">
+    <link rel="stylesheet" href="/css/style_ia.css">
+</head>
+<meta content="text/html; charset = UTF-8" http-equiv="content-type">
+<body>
+<header class="header-navbar"> 
+
+    <a href="index.html" class="logo" id="logotype">
+        <img src="/images/rhythmicity logotipo branco.png" alt="Logo1"> <!-- Logo do Projeto Rythmicity -->
+      </a>
+    <div class="group">
+        <ul class="navigation"> <!-- Funcionalidades da barra de navegação -->
+            <li><a href="indexvideoaulas.html" id="vid">Meus Estudos</a></li>
+            <li><a href="#" >Sobre</a></li>
+            <li><a href="loadCrud.html" >Gerenciar CRUDs</a></li>
+      
+            <li><a href="forms.html" id="log"></a></li>
+            <li><a href="forms.html" id="sign">Sair</a></li>
+            <li><a href="indexperfil.html" id="perfil"><ion-icon size= "large" name="person-circle-outline"></ion-icon></a></li>            
+        </ul>
+        <ion-icon name="menu-outline" class="menuToggle"></ion-icon>
+    </div>
+</header>
+	<main>
+	<div class="ia">
+	<h1>Envie sua Imagem para Análise</h1>
+	<input type="file" id="imagem" accept="image/*" style="display: none;" />
+    <label for="imagem" class="upload-label">Escolha imagem</label>
+    <button id="uploadBtn" disabled>Enviar</button>
+	<div id="resultado"></div>
+	</div>
+	<script>
+        document.getElementById('imagem').addEventListener('change', function() {
+            document.getElementById('uploadBtn').disabled = !this.files.length;
+        });
+
+        document.getElementById('uploadBtn').addEventListener('click', async function() {
+            const fileInput = document.getElementById('imagem');
+            const file = fileInput.files[0];
+
+            if (!file) return alert("Por favor, selecione uma imagem.");
+
+            // Detalhes da API Custom Vision
+            const endpoint = 'https://customvisionex04-prediction.cognitiveservices.azure.com/customvision/v3.0/Prediction/02a61e20-7877-413b-9dab-6d51f307f319/classify/iterations/RHYTIMICO1/image';
+            const predictionKey = '78746f8d56e24ddea1af1162e34ecc8b';
+
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Prediction-Key': predictionKey,
+                        'Content-Type': 'application/octet-stream' // Tipo de conteúdo correto para arquivos binários
+                    },
+                    body: file // Envia o arquivo de imagem como corpo da requisição
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Erro ao enviar a imagem: ${response.statusText}`);
+                }
+
+                const result = await response.json();
+                const predictions = result.predictions;
+                const highestPrediction = predictions.reduce((max, prediction) => prediction.probability > max.probability ? prediction : max);
+
+                let outputMessage = "";
+                if (highestPrediction.probability >= 0.5) {
+                    outputMessage = `Predição: ${highestPrediction.tagName} com ${Math.round(highestPrediction.probability * 100)}% de confiança.`;
+                } else {
+                    outputMessage = "Não foi possível prever com confiança.";
+                }
+
+                document.getElementById('resultado').innerText = outputMessage;
+            } catch (error) {
+                console.error('Erro ao enviar imagem:', error);
+                document.getElementById('resultado').innerText = 'Erro ao enviar imagem para a API.';
+            }
+        });
+    </script>
+	</main>
+<footer>
+    <div class="footer-left">
+        <strong>Empresa</strong>
+        <p>Sobre</p>
+        <p>Atendimento</p>
+        <p>Envio de currículo</p>
+    </div>
+    <div class="footer-right">
+        <strong>Social</strong>
+        <p>Instagram</p>
+        <p>Discord</p>
+        <p>Facebook</p>
+        <p class="copyright">© 2023 Rhythmicity, PUC Minas.</p>
+    </div>
+</footer>
+
+
+</body>
+</html>
