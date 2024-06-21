@@ -2,13 +2,13 @@ cff-version: 1.0.1
 message: Please cite this software using these metadata.
 title: Rhythmicity
 authors:
-  - family-names: Hauck
-    given-names: Lucas
-  - family-names: Clemente
+  - family-names: Roch Hauck
+    given-names: Lucas Henrique
+  - family-names: Clemente Machado
     given-names: Arthur
-  - family-names: Barbosa
+  - family-names: Barbosa Rosa
     given-names: Luan
-  - family-names: Moreira
+  - family-names: Moreira Rocha
     given-names: Diego
   - family-names: Sales
     given-names: Gustavo
