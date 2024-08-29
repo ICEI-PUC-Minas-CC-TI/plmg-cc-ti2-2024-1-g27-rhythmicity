@@ -12,8 +12,6 @@ authors:
     given-names: Diego
   - family-names: Sales
     given-names: Gustavo
-  - family-names: 
-    given-names:
   - name-suffix: Professor
     affiliation: PUC Minas
     family-names: Rivero
@@ -22,9 +20,9 @@ authors:
     affiliation: PUC Minas
     family-names: Diniz
     given-names: Luciana
-keywords: Música
-  - 
-  - 
+keywords:
+  - Música
+  - Ritmo
 repository-code: https://github.com/ICEI-PUC-Minas-CC-TI/plmg-cc-ti2-2024-1-g27-rhythmicity.git
 license: CC-BY-4.0
 version: 1.2.0
